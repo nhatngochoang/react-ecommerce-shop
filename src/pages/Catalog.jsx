@@ -1,7 +1,13 @@
 import React from 'react';
+import Helmet from '../components/Helmet.jsx';
+
 
 const Catalog = () => {
-   return <div>Catalog</div>;
+   return (
+      <Helmet title="Sản phấm">
+         Catalog
+      </Helmet>
+   )
 };
 
 export default Catalog;
