@@ -15,15 +15,17 @@ import banner from '../assets/images/banner.png'
 const Home = () => {
    return (
       <Helmet title="Trang Chủ">
-         {/* Hero slider Begin */}
+         {/* Begin Hero slider  */}
          <HeroSlider
             data={heroSliderData}
             control={true}
             auto={true}
             timeOut={5000}
          />
-         {/* Hero slider End */}
-         {/* Policy Begin */}
+         {/* End Hero slider  */}
+
+
+         {/* Begin Policy  */}
          <Section>
             <SectionBody>
                <Grid
@@ -44,8 +46,8 @@ const Home = () => {
                </Grid>
             </SectionBody>
          </Section>
-         {/* Policy End */}
-         {/* begin best selling section */}
+         {/* End Policy  */}
+         {/* Begin best selling section */}
          <Section>
             <SectionTitle>
                top sản phẩm bán chạy trong tuần
@@ -72,8 +74,8 @@ const Home = () => {
                </Grid>
             </SectionBody>
          </Section>
-         {/* end Best selling section */}
-         {/* new arrival section */}
+         {/* End best selling section */}
+         {/* Begin new arrival section */}
          <Section>
             <SectionTitle>
                sản phẩm mới
@@ -102,7 +104,7 @@ const Home = () => {
          </Section>
          {/* end new arrival section */}
 
-         {/* banner */}
+         {/* Begin banner */}
          <Section>
             <SectionBody>
                <Link to="/catalog">
@@ -112,7 +114,7 @@ const Home = () => {
          </Section>
          {/* end banner */}
 
-         {/* popular product section */}
+         {/* Begin popular product section */}
          <Section>
             <SectionTitle>
                phổ biến

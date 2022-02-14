@@ -25,8 +25,8 @@ const Header = () => {
    const { pathname } = useLocation()
    const activeNav = mainNav.findIndex(e => e.path === pathname) // when an nav item is Clicked, add active Class
 
-   const headerRef = useRef(null)
    // Listen Scroll Event
+   const headerRef = useRef(null)
    useEffect(() => {
       window.addEventListener("scroll", () => {
          if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
@@ -40,8 +40,8 @@ const Header = () => {
       };
    }, []);
 
+   // Toggle Menu Left
    const menuLeft = useRef(null)
-
    const menuToggle = () => menuLeft.current.classList.toggle('active')
 
    return (

@@ -42,7 +42,9 @@ const HeroSlider = (props) => {
       <div className="hero-slider">
          {
             data.map((item, index) => (
-               <HeroSliderItem key={index} item={item} active={index === activeSlide} />
+               <HeroSliderItem key={index}
+                  item={item}
+                  active={index === activeSlide} />
             ))
          }
          {
@@ -84,7 +86,6 @@ HeroSlider.propTypes = {
 const HeroSliderItem = props => {
    const { active } = props
    const { title, description, path, color, img } = props.item
-
 
    return (
       <div className={`hero-slider__item ${active ? 'active' : ''}`}>
