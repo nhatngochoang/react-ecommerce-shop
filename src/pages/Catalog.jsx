@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import productApi from '../api/productApi.js';
 import category from '../assets/fake-data/category.js';
 import colors from '../assets/fake-data/product-color';
 import size from '../assets/fake-data/product-size';
@@ -8,14 +9,26 @@ import CheckBox from '../components/CheckBox.jsx';
 import Helmet from '../components/Helmet.jsx';
 import InfinityList from '../components/InfinityList.jsx';
 
-
-
 const Catalog = () => {
-
 
    const productList = productData.getAllProducts()
 
-   const [products, setProducts] = useState(productList)
+   const [products, setProducts] = useState([])
+
+   console.log(products);
+   useEffect(() => {
+      const fetchProductList = async () => {
+         try {
+            const response = await productApi.getAll();
+            console.log('Fetch products successfully: ', response);
+            setProducts(response);
+         } catch (error) {
+            console.log('Failed to fetch product list: ', error);
+         }
+      }
+
+      fetchProductList();
+   }, []);
 
    const initFilter = {
       category: [],
