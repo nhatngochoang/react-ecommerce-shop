@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
-
+import { store } from './redux/store.js'
+import { Provider } from 'react-redux'
 import 'assets/boxicons-2.0.7/css/boxicons.min.css';
 import 'sass/index.scss';
+import 'jquery'
+import './firebaseui-styling.global.css'; // Import globally. Not with CSS modules.
 
 import Layout from 'components/Layout'
 
 ReactDOM.render(
    <React.StrictMode>
-      <Layout />
+      <Provider store={store}>
+         <Layout />
+      </Provider>
    </React.StrictMode>,
    document.getElementById('root')
 );

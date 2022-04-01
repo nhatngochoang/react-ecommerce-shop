@@ -48,10 +48,10 @@
        font-size: 1.5rem;
 
        &__item ~ &__item {
-           margin-left: 39px;
+           margin-left: 32px;
 
            @include tablet {
-               margin-left: 20px;
+               margin-left: 28px;
            }
 
            @include mobile {

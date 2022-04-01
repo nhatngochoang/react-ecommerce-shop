@@ -24,12 +24,13 @@ const InfinityList = props => {
    useEffect(() => {
       window.addEventListener("scroll", () => {
          if (listRef && listRef.current) {
-            if (window.scrollY + window.innerHeight >= listRef.current.clientHeight + listRef.current.offsetTop + 200) {
-               console.log("bottom reach") // đã kéo tới cuối trang
-               setLoad(true)
+            if (listRef && listRef.current) {
+               if (window.scrollY + window.innerHeight >= listRef.current.clientHeight + listRef.current.offsetTop + 200) {
+                  console.log("bottom reach") // đã kéo tới cuối trang
+                  setLoad(true)
+               }
             }
          }
-
       })
    }, [listRef])
 
@@ -49,6 +50,16 @@ const InfinityList = props => {
       getItems()
       setLoad(false)
    }, [load, index, data, props.data])
+
+   const handleGoToTop = () => {
+      window.scroll({
+         top: 0,
+         left: 0,
+         behavior: 'smooth'
+      });
+   }
+
+
 
    return (
       <div ref={listRef}>
@@ -72,6 +83,16 @@ const InfinityList = props => {
             }
 
          </Grid>
+         <div style={{ width: '100%' }}>
+            <button className="button-6"
+               style={{
+                  position: 'absolute',
+                  left: '50%',
+                  transform: 'translateX(50%)'
+               }}
+               onClick={handleGoToTop}
+            >Go To Top</button>
+         </div>
       </div>
    )
 }

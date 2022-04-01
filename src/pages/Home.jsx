@@ -12,9 +12,11 @@ import policy from '../assets/fake-data/policy.js';
 import productData from '../assets/fake-data/products.js'
 
 import banner from '../assets/images/banner.png'
+import ProductTest from '../components/ProductTest.jsx';
 const Home = () => {
    return (
       <Helmet title="Trang Chủ">
+         {/* <ProductTest /> */}
          {/* Begin Hero slider  */}
          <HeroSlider
             data={heroSliderData}

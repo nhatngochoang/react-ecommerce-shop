@@ -3,99 +3,185 @@
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   -webkit-tap-highlight-color: transparent;
+   user-select: none;
 }
 
 html {
-    font-size: 13px;
+   font-size: 13px;
 }
 
 body {
-    font-family: "Roboto", sans-serif;
+   font-family: "Roboto", sans-serif;
 }
 
 ul {
-    list-style-type: none;
+   list-style-type: none;
 }
 
 a {
-    text-decoration: none;
-    color: unset;
+   text-decoration: none;
+   color: unset;
 }
 
 a:hover {
-    color: $main-color;
+   color: $main-color;
 }
 
 img {
-    max-width: 100%;
+   max-width: 100%;
 }
 
 @each $color, $val in $colors {
-    .color-#{$color} {
-        color: $val;
-    }
+   .color-#{$color} {
+      color: $val;
+   }
 
-    .bg-#{$color} {
-        background-color: $val;
-    }
+   .bg-#{$color} {
+      background-color: $val;
+   }
 }
 
 @each $val in $numbers {
-    .grid-col-#{$val} {
-        grid-template-columns: repeat($val, 1fr);
-    }
+   .grid-col-#{$val} {
+      grid-template-columns: repeat($val, 1fr);
+   }
 }
 
 @each $val in $numbers {
-    .grid-col-md-#{$val} {
-        @include tablet {
-            grid-template-columns: repeat($val, 1fr);
-        }
-    }
+   .grid-col-md-#{$val} {
+      @include tablet {
+         grid-template-columns: repeat($val, 1fr);
+      }
+   }
 }
 
 @each $val in $numbers {
-    .grid-col-sm-#{$val} {
-        @include mobile {
-            grid-template-columns: repeat($val, 1fr);
-        }
-    }
+   .grid-col-sm-#{$val} {
+      @include mobile {
+         grid-template-columns: repeat($val, 1fr);
+      }
+   }
 }
 
 .container {
-    width: 100%;
-    max-width: 1620px;
-    padding: 0 50px;
-    margin: auto;
+   width: 100%;
+   max-width: 1620px;
+   padding: 0 50px;
+   margin: auto;
 
-    @include tablet {
-        padding: 0 20px;
-    }
+   @include tablet {
+      padding: 0 20px;
+   }
 
-    @include mobile {
-        padding: 0 10px;
-    }
+   @include mobile {
+      padding: 0 10px;
+   }
 }
 
 .main {
-    margin-top: $header-height;
-    margin-bottom: 2rem;
-    min-height: 100vh;
+   margin-top: $header-height;
+   margin-bottom: 2rem;
+   min-height: 100vh;
 
-    @include tablet {
-        margin-top: calc(#{$header-tablet-height} + 20px);
-    }
+   @include tablet {
+      margin-top: calc(#{$header-tablet-height} + 20px);
+   }
 
-    @include mobile {
-        margin-top: calc(#{$header-mobile-height} + 10px);
-    }
+   @include mobile {
+      margin-top: calc(#{$header-mobile-height} + 10px);
+   }
 }
 
 .grid {
-    display: grid;
+   display: grid;
+}
+
+// Cart Styles
+.cart-drawer {
+   cursor: pointer;
+   margin: 0 0 0 5px;
+   position: relative;
+   overflow: visible;
+   outline: 0;
+}
+
+.center,
+.v-center {
+   display: flex;
+   align-items: center;
+}
+
+.navbar__link-icon {
+   font-size: 1.0625rem;
+   margin-right: 0.625rem;
+}
+
+.m2-svg-icon {
+   display: inline-block;
+   fill: currentColor;
+   position: relative;
+}
+
+.cart-drawer .icon-shopping-cart-2 {
+   color: #000;
+   stroke: #000;
+}
+
+.header__menu__item.header__menu__right__item:hover .cart-drawer .icon-shopping-cart-2 {
+   color: #4267b2;
+   color: #fc00ff;
+   stroke: #4267b2;
+   stroke: #fc00ff;
+}
+
+.navbar__link-icon.icon-shopping-cart-2 {
+   fill: currentColor;
+   width: 26px;
+   height: 26px;
+   cursor: pointer;
+}
+
+.navbar__link-icon.icon-shopping-cart-2 {
+   fill: currentColor;
+   cursor: pointer;
+}
+
+.m2-cart-number-badge {
+   position: relative;
+   border-radius: 50%;
+   min-width: 10px;
+   line-height: 8px;
+   padding: 8px;
+   text-align: center;
+   height: 25px;
+   border: 0.125rem solid var(--brand-primary-color, #ee4d2d);
+   background-color: #fff;
+}
+
+.header__menu__item.header__menu__right__item:hover .m2-cart-number-badge {
+   color: white;
+   background-color: #4267b2;
+   border: 0.125rem solid var(--brand-primary-color, #4267b2);
+   transition: all 0.15s linear;
+}
+
+.cart-drawer .m2-cart-number-badge {
+   top: -11px;
+   left: -22px;
+}
+
+.m2-cart-number-badge,
+.m2-notification-number-badge {
+   color: #000;
+   border-color: #000;
+   font-size: 14px;
+   transform: scale(0.9);
+}
+
+.hidden {
+   opacity: 0;
 }

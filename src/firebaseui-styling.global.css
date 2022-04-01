@@ -1,0 +1,30 @@
+.firebaseui-idp-button:hover {
+   will-change: background;
+   animation: backGroundBtn .5s forwards;
+}
+
+
+.firebaseui-idp-button {
+   font-family: Montserrat-SemiBold !important;
+
+}
+
+.firebaseui-idp-text {
+   font-size: 13px !important;
+}
+
+.firebaseui-idp-button:hover .firebaseui-idp-text {
+   color: white !important;
+   transition: color .25s linear !important;
+}
+
+@keyframes backGroundBtn {
+   from {}
+
+   to {
+      background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
+      background: -o-linear-gradient(45deg, #00dbde, #fc00ff);
+      background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
+      background: linear-gradient(45deg, #00dbde, #fc00ff);
+   }
+}

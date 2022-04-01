@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../assets/images/logo.webp';
 
 const mainNav = [
@@ -21,28 +22,38 @@ const mainNav = [
    }
 ]
 
-const Header = () => {
+const Header = ({ handleAuth }) => {
    const { pathname } = useLocation()
    const activeNav = mainNav.findIndex(e => e.path === pathname) // when an nav item is Clicked, add active Class
 
    // Listen Scroll Event
    const headerRef = useRef(null)
    useEffect(() => {
-      window.addEventListener("scroll", () => {
-         if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-            headerRef.current.classList.add('shrink')
-         } else {
-            headerRef.current.classList.remove('shrink')
-         }
-      })
+      window.addEventListener("scroll", handleScroll())
       return () => {
-         window.removeEventListener("scroll")
+         window.removeEventListener("scroll", handleScroll())
       };
+
+      function handleScroll() {
+         return () => {
+            if (headerRef && headerRef.current) {
+               if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+                  headerRef.current.classList.add('shrink');
+               } else {
+                  headerRef.current.classList.remove('shrink');
+               }
+            }
+         };
+      }
    }, []);
 
    // Toggle Menu Left
    const menuLeft = useRef(null)
    const menuToggle = () => menuLeft.current.classList.toggle('active')
+
+   const cartItems = useSelector((state) => state.cartItems.value)
+
+
 
    return (
       <div className="header" ref={headerRef}>
@@ -85,12 +96,20 @@ const Header = () => {
                      <i className="bx bx-search"></i>
                   </div>
                   <div className="header__menu__item header__menu__right__item">
-                     <Link to="/cart">
-                        <i className="bx bx-shopping-bag"></i>
+                     <Link to="/cart" className="cart-drawer flex v-center">
+                        <svg viewBox="0 0 26.6 25.6" className="m2-svg-icon navbar__link-icon icon-shopping-cart-2"><polyline fill="none" points="2 1.7 5.5 1.7 9.6 18.3 21.2 18.3 24.6 6.1 7 6.1" strokeLinecap="round" strokeLinejoin="round" strokeMiterlimit="10" strokeWidth="2.5"></polyline><circle cx="10.7" cy="23" r="2.2" stroke="none"></circle><circle cx="19.7" cy="23" r="2.2" stroke="none"></circle></svg>
+                        <div className={`m2-cart-number-badge ${cartItems.length === 0 ? 'hidden' : ''}`}
+
+                        >
+                           {cartItems.length}
+                        </div>
                      </Link>
                   </div>
-                  <div className="header__menu__item header__menu__right__item">
-                     <i className="bx bx-user"></i>
+                  <div className="header__menu__item header__menu__right__item"
+                     style={{ marginLeft: 0 }}>
+                     <Link to="/signin" onClick={handleAuth}>
+                        <i className="bx bx-user"></i>
+                     </Link>
                   </div>
                </div>
             </div>
