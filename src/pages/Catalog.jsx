@@ -22,9 +22,12 @@ const initialState = [{
    "colors": [],
    "size": [],
 }]
+
 const Catalog = () => {
 
    const [products, setProducts] = useState(initialState)
+
+   const [tempState, setTempState] = useState(initialState)
 
    useEffect(() => {
       const fetchProductList = async () => {
@@ -39,6 +42,20 @@ const Catalog = () => {
 
       fetchProductList();
    }, []);
+
+   useEffect(() => {
+      const fetchProductList = async () => {
+         try {
+            const response = await productApi.getAll();
+            // console.log('Fetch products successfully: ', response);
+            setTempState(response)
+         } catch (error) {
+            // console.log('Failed to fetch product list: ', error);
+         }
+      }
+
+      fetchProductList();
+   }, [])
 
    const initFilter = {
       category: [],
@@ -94,7 +111,7 @@ const Catalog = () => {
 
    const updateProducts = useCallback(
       () => {
-         let temp = initialState
+         let temp = tempState
 
          if (filter.category.length > 0) {
             temp = temp.filter(e => filter.category.includes(e.categorySlug))
@@ -116,7 +133,7 @@ const Catalog = () => {
 
          setProducts(temp)
       },
-      [filter],
+      [filter, tempState],
    )
 
    useEffect(() => {
