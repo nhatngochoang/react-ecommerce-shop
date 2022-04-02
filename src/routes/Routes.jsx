@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import Order from '../components/Order.jsx'
 import SignIn from '../pages/Auth/pages/SignIn/index.jsx'
 import SignUp from '../pages/Auth/pages/SignUp/index.jsx'
 import Cart from '../pages/Cart'
@@ -17,6 +18,7 @@ const Routes = () => {
          <Route path='/cart' component={Cart} />
          <Route path='/signin' component={SignIn} />
          <Route path='/signup' component={SignUp} />
+         <Route path='/orders/:id' component={Order} />
       </Switch>
    )
 }
