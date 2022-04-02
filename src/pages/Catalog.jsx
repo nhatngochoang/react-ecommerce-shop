@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import categoryApi from '../api/categoryApi.js';
+import colorApi from '../api/colorApi.js';
 import productApi from '../api/productApi.js';
-import category from '../assets/fake-data/category.js';
-import colors from '../assets/fake-data/product-color';
-import size from '../assets/fake-data/product-size';
+import sizeApi from '../api/sizeApi.js';
 import Button from '../components/Button.jsx';
 import CheckBox from '../components/CheckBox.jsx';
 import Helmet from '../components/Helmet.jsx';
 import InfinityList from '../components/InfinityList.jsx';
 
-const initialState = [{
+const productsState = [{
    "_id": "",
    "title": "",
    "description": "",
@@ -23,11 +23,36 @@ const initialState = [{
    "size": [],
 }]
 
+const categoryState = [
+   {
+      display: "",
+      categorySlug: ""
+   }
+]
+
+const colorState = [
+   {
+      display: "",
+      color: ""
+   }
+]
+
+const sizeState = [
+   {
+      display: "",
+      size: ""
+   }
+]
+
 const Catalog = () => {
 
-   const [products, setProducts] = useState(initialState)
+   const [products, setProducts] = useState(productsState)
 
-   const [tempState, setTempState] = useState(initialState)
+   const [category, setCategories] = useState(categoryState)
+   const [colors, setColors] = useState(colorState)
+   const [size, setSize] = useState(sizeState)
+
+   const [tempState, setTempState] = useState(productsState)
 
    useEffect(() => {
       const fetchProductList = async () => {
@@ -44,13 +69,52 @@ const Catalog = () => {
    }, []);
 
    useEffect(() => {
+      const fetchCategoryList = async () => {
+         try {
+            const response = await categoryApi.getAll();
+            console.log('Fetch colors successfully: ', response);
+            setCategories(response);
+         } catch (error) {
+            console.log('Failed to fetch color list: ', error);
+         }
+      }
+
+      fetchCategoryList();
+   }, []);
+   useEffect(() => {
+      const fetchColorList = async () => {
+         try {
+            const response = await colorApi.getAll();
+            console.log('Fetch categories successfully: ', response);
+            setColors(response);
+         } catch (error) {
+            console.log('Failed to fetch category list: ', error);
+         }
+      }
+
+      fetchColorList();
+   }, []);
+
+   useEffect(() => {
+      const fetchSizeList = async () => {
+         try {
+            const response = await sizeApi.getAll();
+            console.log('Fetch sizes successfully: ', response);
+            setSize(response);
+         } catch (error) {
+            console.log('Failed to fetch size list: ', error);
+         }
+      }
+
+      fetchSizeList();
+   }, []);
+
+   useEffect(() => {
       const fetchProductList = async () => {
          try {
             const response = await productApi.getAll();
-            // console.log('Fetch products successfully: ', response);
             setTempState(response)
          } catch (error) {
-            // console.log('Failed to fetch product list: ', error);
          }
       }
 
