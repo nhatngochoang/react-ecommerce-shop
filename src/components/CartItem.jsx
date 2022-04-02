@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import { useDispatch } from 'react-redux'
-import { updateItem, removeItem } from '../redux/shopping-cart/cartItemsSlide'
+import { updateItem, removeItem } from '../redux/shopping-cart/cartItemsSlice'
 
 import numberWithCommas from '../utils/numberWithCommas'
 import { Link } from 'react-router-dom'

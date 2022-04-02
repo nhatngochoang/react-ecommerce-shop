@@ -4,7 +4,7 @@ import Button from './Button.jsx'
 import numberWithCommas from '../utils/numberWithCommas.js'
 import { withRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { addItem } from '../redux/shopping-cart/cartItemsSlide.js'
+import { addItem } from '../redux/shopping-cart/cartItemsSlice.js'
 import { remove } from '../redux/product-modal/productModalSlice.js'
 
 const ProductView = props => {

@@ -52,10 +52,14 @@ export const cartItemsSlice = createSlice({
          state.value = state.value.filter(e => e.slug !== item.slug || e.color !== item.color || e.size !== item.size)
          localStorage.setItem('cartItems', JSON.stringify(state.value.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0))))
       },
+      resetCart: (state) => {
+         state.value = []
+         localStorage.setItem('cartItems', JSON.stringify(state.value))
+      },
    },
 })
 
 // Action creators are generated for each case reducer function
-export const { addItem, removeItem, updateItem } = cartItemsSlice.actions
+export const { addItem, removeItem, updateItem, resetCart } = cartItemsSlice.actions
 
 export default cartItemsSlice.reducer

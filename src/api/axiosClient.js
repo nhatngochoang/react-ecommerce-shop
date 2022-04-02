@@ -6,7 +6,7 @@ import firebase from 'firebase/compat/app';
 const getFirebaseToken = async () => {
    const currentUser = firebase.auth().currentUser
    if (currentUser) {
-      console.log(currentUser)
+      console.log("Current User:" + currentUser)
       return currentUser.getIdToken() // auto refresh token if needed
    }
 

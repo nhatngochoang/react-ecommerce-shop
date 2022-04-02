@@ -3,7 +3,7 @@ import userReducer from './firebase/userSlice.js'
 
 import productModalReducer from './product-modal/productModalSlice'
 
-import cartItemsReducer from './shopping-cart/cartItemsSlide'
+import cartItemsReducer from './shopping-cart/cartItemsSlice'
 
 export const store = configureStore({
    reducer: {
