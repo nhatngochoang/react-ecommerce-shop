@@ -15,7 +15,6 @@ const Catalog = () => {
 
    const [products, setProducts] = useState([])
 
-   console.log(products);
    useEffect(() => {
       const fetchProductList = async () => {
          try {

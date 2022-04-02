@@ -9,8 +9,8 @@ class ProductApi {
       });
    };
 
-   get = (id) => {
-      const url = `/products/${id}`
+   getBySlug = (slug) => {
+      const url = `/product/${slug}`
       return axiosClient.get(url)
    }
 }

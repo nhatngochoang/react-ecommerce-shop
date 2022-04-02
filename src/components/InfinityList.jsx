@@ -77,7 +77,7 @@ const InfinityList = props => {
                      img02={item.image02}
                      name={item.title}
                      price={Number(item.price)}
-                     slug={item.slug}
+                     slug={item._id}
                   />
                ))
             }
