@@ -9,11 +9,25 @@ import CheckBox from '../components/CheckBox.jsx';
 import Helmet from '../components/Helmet.jsx';
 import InfinityList from '../components/InfinityList.jsx';
 
+const initialState = [{
+   "_id": "",
+   "title": "",
+   "description": "",
+   "image01": "",
+   "image02": "",
+   "categorySlug": "",
+   "slug": "",
+   "price": 0,
+   "discount": 0,
+   "sold": 0,
+   "colors": [],
+   "size": [],
+}]
 const Catalog = () => {
 
-   const productList = productData.getAllProducts()
+   // const productList = productData.getAllProducts()
 
-   const [products, setProducts] = useState([])
+   const [products, setProducts] = useState(initialState)
 
    useEffect(() => {
       const fetchProductList = async () => {
@@ -83,7 +97,7 @@ const Catalog = () => {
 
    const updateProducts = useCallback(
       () => {
-         let temp = productList
+         let temp = initialState
 
          if (filter.category.length > 0) {
             temp = temp.filter(e => filter.category.includes(e.categorySlug))
@@ -105,7 +119,7 @@ const Catalog = () => {
 
          setProducts(temp)
       },
-      [filter, productList],
+      [filter, initialState],
    )
 
    useEffect(() => {
