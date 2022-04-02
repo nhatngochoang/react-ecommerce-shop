@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Helmet from '../components/Helmet.jsx';
-import productData from '../assets/fake-data/products.js'
-import Section from '../components/Section.jsx';
-import { SectionBody } from '../components/Section.jsx';
-import { SectionTitle } from '../components/Section.jsx';
+import productApi from '../api/productApi.js';
 import Grid from '../components/Grid.jsx';
+import Helmet from '../components/Helmet.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import ProductView from '../components/ProductView.jsx';
-import productApi from '../api/productApi.js';
+import Section, { SectionBody, SectionTitle } from '../components/Section.jsx';
 
 const Product = (props) => {
-
-   const getRelatedProducts = (categorySlug) => {
-      const relatedProducts = categorySlug
-      return relatedProducts
-   }
 
    const [product, setProduct] = useState({
       "_id": "",

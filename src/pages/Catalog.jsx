@@ -3,7 +3,6 @@ import productApi from '../api/productApi.js';
 import category from '../assets/fake-data/category.js';
 import colors from '../assets/fake-data/product-color';
 import size from '../assets/fake-data/product-size';
-import productData from '../assets/fake-data/products.js';
 import Button from '../components/Button.jsx';
 import CheckBox from '../components/CheckBox.jsx';
 import Helmet from '../components/Helmet.jsx';
@@ -24,8 +23,6 @@ const initialState = [{
    "size": [],
 }]
 const Catalog = () => {
-
-   // const productList = productData.getAllProducts()
 
    const [products, setProducts] = useState(initialState)
 
@@ -119,7 +116,7 @@ const Catalog = () => {
 
          setProducts(temp)
       },
-      [filter, initialState],
+      [filter],
    )
 
    useEffect(() => {
