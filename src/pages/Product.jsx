@@ -11,9 +11,10 @@ import productApi from '../api/productApi.js';
 
 const Product = (props) => {
 
-   // const product = productData.getProductBySlug(props.match.params.slug)
-   // const relatedProducts = productData.getProducts(8)
-
+   const getRelatedProducts = (categorySlug) => {
+      const relatedProducts = categorySlug
+      return relatedProducts
+   }
 
    const [product, setProduct] = useState({
       "_id": "",
@@ -30,8 +31,23 @@ const Product = (props) => {
       "size": [],
    })
 
-   // const relatedProducts = product
+   const [relatedProducts, setRelatedProduct] = useState([{
+      "_id": "",
+      "title": "",
+      "description": "",
+      "image01": "",
+      "image02": "",
+      "categorySlug": "",
+      "slug": "",
+      "price": 0,
+      "discount": 0,
+      "sold": 0,
+      "colors": [],
+      "size": [],
+   }])
+
    useEffect(() => {
+      // const product = productData.getProductBySlug(props.match.params.slug)
       const fetchProductList = async () => {
          try {
             const response = await productApi.getBySlug(props.match.params.slug);
@@ -44,6 +60,20 @@ const Product = (props) => {
 
       fetchProductList();
    }, [props.match.params.slug])
+
+   useEffect(() => {
+      const fetchProductList = async () => {
+         try {
+            const response = await productApi.getByCategorySlug(product.categorySlug);
+            console.log('Fetch realted products successfully: ', response);
+            setRelatedProduct(response);
+         } catch (error) {
+            console.log('Failed realted products list: ', error);
+         }
+      }
+
+      fetchProductList();
+   }, [product])
 
 
    useEffect(() => {
@@ -72,7 +102,7 @@ const Product = (props) => {
                   smCol={1}
                   gap={20}
                >
-                  {/* {
+                  {
                      relatedProducts.map((item, idx) => {
                         return (
                            <ProductCard
@@ -81,11 +111,11 @@ const Product = (props) => {
                               img02={item.image02}
                               name={item.title}
                               price={Number(item.price)}
-                              slug={item.slug}
+                              slug={item._id}
                            />
                         )
                      })
-                  } */}
+                  }
                </Grid>
             </SectionBody>
          </Section>

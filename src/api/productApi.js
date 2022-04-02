@@ -13,6 +13,11 @@ class ProductApi {
       const url = `/product/${slug}`
       return axiosClient.get(url)
    }
+
+   getByCategorySlug = (categorySlug) => {
+      const url = `/products/${categorySlug}`
+      return axiosClient.get(url)
+   }
 }
 
 const productApi = new ProductApi();
