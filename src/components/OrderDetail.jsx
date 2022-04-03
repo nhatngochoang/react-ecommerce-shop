@@ -6,7 +6,7 @@ const OrderDetail = ({ total, createOrder, onClose }) => {
    const [address, setAddress] = useState("");
 
    const handleClick = () => {
-      createOrder({ customer, address, total, method: 0 });
+      createOrder({ customer, address, total, method: "CASH" });
    };
 
    return (

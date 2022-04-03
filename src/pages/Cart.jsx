@@ -122,7 +122,7 @@ const Cart = () => {
                         customer: shipping.name.full_name,
                         address: shipping.address.address_line_1,
                         total: totalPrice,
-                        method: 1,
+                        method: "PAYPAL",
                      });
                   });
                }}
