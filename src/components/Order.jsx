@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import styles from "../sass/components/Order.module.css";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 const paidImg = require("../assets/images/img/paid.png")
 
 const checkedImg = require("../assets/images/img/checked.png")
@@ -17,7 +18,11 @@ const orderState = {
    "method": 0,
 }
 
+
 function Order(props) {
+   const { id } = useParams();
+   console.log(id)
+
    const [order, setOrder] = useState(orderState)
 
    useEffect(() => {
