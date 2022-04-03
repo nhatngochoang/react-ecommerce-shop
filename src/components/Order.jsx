@@ -8,13 +8,6 @@ const bakeImg = require("../assets/images/img/bake.png")
 const bikeImg = require("../assets/images/img/bike.png")
 const deliveredImg = require("../assets/images/img/delivered.png")
 
-export const getServerSideProps = async ({ params }) => {
-   const res = await axios.get(`http://localhost:4000/api/orders/${params.id}`);
-   return {
-      props: { order: res.data },
-   };
-};
-
 const orderState = {
    "_id": "",
    "customer": "",
@@ -24,20 +17,19 @@ const orderState = {
    "method": 0,
 }
 
-function Order() {
+function Order(props) {
    const [order, setOrder] = useState(orderState)
 
-   useEffect((props) => {
+   useEffect(() => {
       const fetchOrderByID = async () => {
-         // const res = await axios.get(`http://localhost:3000/api/orders/${props.match.params._id}`);
-         const res = await axios.get(`http://localhost:4000/api/orders/62486c8c6bcaadc134026972`);
+         const res = await axios.get(`http://localhost:4000/api/orders/${props.match.params.id}`);
          console.log(res);
          setOrder(res.data)
       }
 
       fetchOrderByID()
 
-   }, [])
+   }, [props])
 
    const status = order.status;
 
