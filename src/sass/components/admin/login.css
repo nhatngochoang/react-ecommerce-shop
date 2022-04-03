@@ -1,0 +1,9 @@
+.admin-login-container {
+   background-image: url("../../../assets/images/admin/background1.jpg");
+   background-size: cover;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+   width: 100vw;
+}
