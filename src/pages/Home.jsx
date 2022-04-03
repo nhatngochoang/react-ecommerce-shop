@@ -49,6 +49,8 @@ const Home = () => {
             </SectionBody>
          </Section>
          {/* End Policy  */}
+         <Link to="/whale?type=beluga">Beluga Whale</Link>
+         <Link to="/whale?type=blue">Blue Whale</Link>
          {/* Begin best selling section */}
          <Section>
             <SectionTitle>

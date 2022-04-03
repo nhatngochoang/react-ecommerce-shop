@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import Routes from "../routes/Routes";
+import RoutesAdmin from "../routes/RoutesAdmin";
 import ProductViewModal from "./ProductViewModal.jsx";
 import AuthOpen from "../pages/Auth";
 import firebase from "firebase/compat/app";
@@ -10,6 +11,7 @@ import "firebase/compat/auth";
 import { getMe } from "../redux/firebase/userSlice.js";
 import { useDispatch } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { Switch } from "react-router-dom";
 
 // Configure Firebase.
 const config = {
@@ -94,16 +96,23 @@ const Layout = () => {
                         token={token}
                      />
                   ) : (
-                     <div>
-                        (<Header {...props} handleAuth={handleAuth} />
-                        <div className="container">
-                           <div className="main">
-                              <Routes />
+                     <Switch>
+                        <Route path='/admin'>
+                           <RoutesAdmin />
+                        </Route>
+                        <Route path='/'>
+                           <div>
+                              <Header {...props} handleAuth={handleAuth} />
+                              <div className="container">
+                                 <div className="main">
+                                    <Routes />
+                                 </div>
+                              </div>
+                              <Footer />
+                              <ProductViewModal />
                            </div>
-                        </div>
-                        <Footer />
-                        <ProductViewModal />)
-                     </div>
+                        </Route>
+                     </Switch>
                   )}
                </div>
             )}
