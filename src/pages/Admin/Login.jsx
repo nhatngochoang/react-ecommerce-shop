@@ -7,6 +7,9 @@ import Icon from "./components/Icon.jsx";
 import Input from "./components/Input.jsx";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Link } from 'react-router-dom'
+import authApi from "../../api/authApi.js";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function Login(props) {
    const FacebookBackground = "linear-gradient(to right, #0546A0 0%, #0546A0 40%, #663FB6 100%)";
@@ -17,6 +20,10 @@ function Login(props) {
       username: '',
       password: '',
    })
+
+   const dispatch = useDispatch()
+   // v6 - const navigate = useNavigate()
+   const history = useHistory()
 
    const inputs = [
       {
@@ -44,6 +51,8 @@ function Login(props) {
    const handleSubmit = (e) => {
       e.preventDefault()
       console.log("LOGIN INFO: ", values)
+      // authApi.login(values, dispatch, navigate)
+      authApi.login(values, dispatch, history)
    }
    return (
       <div className="admin-login-container" style={{ fontSize: "16px" }}>

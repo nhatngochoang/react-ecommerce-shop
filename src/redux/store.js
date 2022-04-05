@@ -5,11 +5,15 @@ import productModalReducer from './product-modal/productModalSlice'
 
 import cartItemsReducer from './shopping-cart/cartItemsSlice'
 
+import authReducer from './auth/authSlice'
+
+
 export const store = configureStore({
    reducer: {
       productModal: productModalReducer,
       cartItems: cartItemsReducer,
-      user: userReducer
+      user: userReducer,
+      auth: authReducer
    },
    middleware: [...getDefaultMiddleware({ thunk: true })]
 
