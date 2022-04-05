@@ -8,13 +8,15 @@ import Input from "./components/Input.jsx";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Link } from 'react-router-dom'
 
-function Login(props) {
+
+function Register(props) {
    const FacebookBackground = "linear-gradient(to right, #0546A0 0%, #0546A0 40%, #663FB6 100%)";
    const InstagramBackground = "linear-gradient(to right, #A12AC4 0%, #ED586C 40%, #F0A853 100%)";
    const TwitterBackground = "linear-gradient(to right, #56C1E1 0%, #35A9CE 50%)";
 
    const [values, setValues] = useState({
       username: '',
+      email: '',
       password: '',
    })
 
@@ -29,12 +31,19 @@ function Login(props) {
       },
       {
          id: 2,
+         name: 'email',
+         type: 'email',
+         placeholder: 'Email',
+         required: true,
+      },
+      {
+         id: 3,
          name: 'password',
          type: 'password',
          placeholder: 'Password',
          // pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
          required: true,
-      },
+      }
    ]
 
    const handleChange = (e) => {
@@ -43,7 +52,7 @@ function Login(props) {
 
    const handleSubmit = (e) => {
       e.preventDefault()
-      console.log("LOGIN INFO: ", values)
+      console.log("REGISTER INFO: ", values)
    }
    return (
       <div className="admin-login-container" style={{ fontSize: "16px" }}>
@@ -61,9 +70,9 @@ function Login(props) {
                   })}
                </InputContainer>
                <ButtonContainer>
-                  <Button content="log in" />
+                  <Button content="register" />
                </ButtonContainer>
-               <LoginWith>OR LOGIN WITH</LoginWith>
+               <LoginWith>OR REGISTER WITH</LoginWith>
                <HorizontalRule />
                <IconsContainer>
                   <Icon color={FacebookBackground}>
@@ -76,10 +85,7 @@ function Login(props) {
                      <FaTwitter />
                   </Icon>
                </IconsContainer>
-               <ForgotPassword>Forgot Password ?</ForgotPassword>
-               <ButtonContainer>
-                  <Link to="/admin/register">Register</Link>
-               </ButtonContainer>
+               <Link to="/admin/login">Log in</Link>
             </MainContainer>
          </form>
       </div>
@@ -183,4 +189,4 @@ const ForgotPassword = styled.h4`
    cursor: pointer;
 `;
 
-export default Login;
+export default Register;

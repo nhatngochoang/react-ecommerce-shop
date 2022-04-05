@@ -7,3 +7,11 @@
    height: 100vh;
    width: 100vw;
 }
+
+.admin-login-container button a {
+   color: #fff;
+}
+.admin-login-container button:hover a {
+   color: #fc00ff;
+   transition: color 0.3s linear;
+}
