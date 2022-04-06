@@ -7,6 +7,9 @@ import Icon from "./components/Icon.jsx";
 import Input from "./components/Input.jsx";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import authApi from "../../api/authApi.js";
 
 
 function Register(props) {
@@ -19,6 +22,9 @@ function Register(props) {
       email: '',
       password: '',
    })
+
+   const dispatch = useDispatch()
+   const history = useHistory()
 
    const inputs = [
       {
@@ -53,6 +59,7 @@ function Register(props) {
    const handleSubmit = (e) => {
       e.preventDefault()
       console.log("REGISTER INFO: ", values)
+      authApi.register(values, dispatch, history)
    }
    return (
       <div className="admin-login-container" style={{ fontSize: "16px" }}>
@@ -183,10 +190,6 @@ const IconsContainer = styled.div`
    justify-content: space-evenly;
    margin: 2rem 0 3rem 0;
    width: 80%;
-`;
-
-const ForgotPassword = styled.h4`
-   cursor: pointer;
 `;
 
 export default Register;

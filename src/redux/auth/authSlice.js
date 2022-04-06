@@ -5,6 +5,10 @@ const initialState = {
       currentUser: null,
       isFetching: false,
       error: false
+   },
+   register: {
+      isFetching: false,
+      error: false,
    }
 }
 
@@ -24,10 +28,28 @@ export const authSlice = createSlice({
          state.login.isFetching = false
          state.login.error = true
       },
+      registerStart: (state) => {
+         state.register.isFetching = true
+      },
+      registerSuccess: (state) => {
+         state.register.isFetching = false
+         state.register.error = false
+      },
+      registerError: (state) => {
+         state.register.isFetching = false
+         state.register.error = true
+      },
    },
 })
 
 // Action creators are generated for each case reducer function
-export const { loginStart, loginSuccess, loginError } = authSlice.actions
+export const {
+   loginStart,
+   loginSuccess,
+   loginError,
+   registerStart,
+   registerSuccess,
+   registerError
+} = authSlice.actions
 
 export default authSlice.reducer
