@@ -1,0 +1,13 @@
+.layout {
+   color: var(--admin-txt-color);
+}
+
+.layout__content {
+   padding-left: var(--admin-sidebar-width);
+   background-color: var(--admin-second-bg);
+   min-height: 100vh;
+}
+
+.layout__content-main {
+   padding: 30px;
+}
