@@ -8,7 +8,8 @@ class AuthApi {
       try {
          const res = await axiosClient.post('/auth/login', user);
          dispatch(loginSuccess(res))
-         history.push("/admin/dashboard")
+         localStorage.setItem("accessToken", res.accessToken)
+         window.location.reload(false);
       } catch (error) {
          dispatch(loginError())
       }

@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-
-import "../../sass/components/admin/login.css";
-import Button from "./components/Button.jsx";
-import Icon from "./components/Icon.jsx";
-import Input from "./components/Input.jsx";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
-import { Link } from 'react-router-dom'
-import authApi from "../../api/authApi.js";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from 'react-router-dom';
+import styled from "styled-components";
+import authApi from "../../../api/authApi.js";
+import "../../../sass/components/admin/login.css";
+import Button from "../components/Button.jsx";
+import Icon from "../components/Icon.jsx";
+import Input from "../components/Input.jsx";
 
 function Login(props) {
    const FacebookBackground = "linear-gradient(to right, #0546A0 0%, #0546A0 40%, #663FB6 100%)";
