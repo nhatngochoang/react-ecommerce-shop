@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import Header from "components/Header";
+import { unwrapResult } from "@reduxjs/toolkit";
 import Footer from "components/Footer";
-import Routes from "../routes/Routes";
-import RoutesAdmin from "../routes/RoutesAdmin";
-import ProductViewModal from "./ProductViewModal.jsx";
-import AuthOpen from "../pages/Auth";
+import Header from "components/Header";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { getMe } from "../redux/firebase/userSlice.js";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { unwrapResult } from "@reduxjs/toolkit";
-import { Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Admin from "../pages/Admin/index.jsx";
+import AuthOpen from "../pages/Auth";
+import { getMe } from "../redux/firebase/userSlice.js";
+import Routes from "../routes/Routes";
+import ProductViewModal from "./ProductViewModal.jsx";
 
 // Configure Firebase.
 const config = {
@@ -98,7 +97,7 @@ const Layout = () => {
                   ) : (
                      <Switch>
                         <Route path='/admin'>
-                           <RoutesAdmin />
+                           <Admin />
                         </Route>
                         <Route path='/'>
                            <div>

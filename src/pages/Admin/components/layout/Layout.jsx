@@ -1,11 +1,8 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { Switch } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
 import RoutesAdmin from '../../../../routes/RoutesAdmin.jsx'
-import RoutesAuth from '../../../../routes/RoutesAuth.jsx'
-
 import Sidebar from '../sidebar/index.jsx'
+
 
 const adminAccessToken = localStorage.getItem('accessToken')
 
