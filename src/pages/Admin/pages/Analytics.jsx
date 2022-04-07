@@ -5,10 +5,13 @@ import {
 } from 'chart.js'
 import React from 'react'
 import { Bar } from 'react-chartjs-2'
-import { colors, data } from '../components/assets/constants'
+import { useSelector } from 'react-redux'
+import { data } from '../components/assets/constants'
 import Box from '../components/box/Box.jsx'
+import DashboardWrapper, { DashboardWrapperMain, DashboardWrapperRight } from '../components/dashboard-wrapper/DashboardWrapper.jsx'
+import OverallList from '../components/overall-list/OverallList.jsx'
+import RevenueList from '../components/revenue-list/RevenueList.jsx'
 import SummaryBox, { SummaryBoxSpecial } from '../components/summary-box/SummaryBox.jsx'
-
 
 ChartJS.register(
    CategoryScale,
@@ -22,36 +25,51 @@ ChartJS.register(
 
 export default function Analytics() {
    return (
-      <div>
-         <div className="row">
-            <div className="col-8 col-md-12">
-               <div className="row">
-                  {
-                     data.summary.map((item, index) => (
-                        <div key={`summary-${index}`} className="col-6 col-md-6 col-sm-12 mb">
-                           <SummaryBox item={item} />
-                        </div>
-                     ))
-                  }
+      <DashboardWrapper>
+         <DashboardWrapperMain>
+            <div className="row">
+               <div className="col-8 col-md-12">
+                  <div className="row">
+                     {
+                        data.summary.map((item, index) => (
+                           <div key={`summary-${index}`} className="col-6 col-md-6 col-sm-12 mb">
+                              <SummaryBox item={item} />
+                           </div>
+                        ))
+                     }
+                  </div>
+               </div>
+               <div className="col-4 hide-md" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <SummaryBoxSpecial item={data.revenueSummary} />
                </div>
             </div>
-            <div className="col-4 hide-md" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-               <SummaryBoxSpecial item={data.revenueSummary} />
+            <div className="row">
+               <div className="col-12">
+                  <Box>
+                     <RevenueByMonthsChart />
+                  </Box>
+               </div>
             </div>
-         </div>
-         <div className="row">
-            <div className="col-12">
-               <Box>
-                  <RevenueByMonthsChart />
-               </Box>
+         </DashboardWrapperMain>
+         <DashboardWrapperRight>
+            <div className="title mb">Overall</div>
+            <div className="mb">
+               <OverallList />
             </div>
-         </div>
-      </div>
-
+            <div className="title mb">Revenue by channel</div>
+            <div className="mb">
+               <RevenueList />
+            </div>
+         </DashboardWrapperRight>
+      </DashboardWrapper>
    )
 }
 
 const RevenueByMonthsChart = () => {
+   const theme = useSelector(state => state.theme)
+   let color = theme.color.slice(12)
+   if (color === 'blue') color = '#349eff'
+
    const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -79,7 +97,7 @@ const RevenueByMonthsChart = () => {
       },
       elements: {
          bar: {
-            backgroundColor: colors.orange,
+            backgroundColor: color,
             borderRadius: 20,
             borderSkipped: 'bottom'
          }

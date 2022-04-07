@@ -95,7 +95,7 @@ export const SummaryBoxSpecial = ({ item }) => {
       ]
    }
    return (
-      <Box purple fullheight>
+      <Box mainColor fullheight>
          <div className="summary-box-special">
             <div className="summary-box-special__title">
                {item.title}
