@@ -1,0 +1,22 @@
+@import "./abstracts/";
+
+.mb {
+   margin-bottom: $spacing;
+
+   @include tablet {
+      margin-bottom: $mobileSpacing;
+   }
+}
+
+.title {
+   font-size: $fontSizeMedium;
+   font-weight: 700;
+}
+
+.txt-success {
+   color: $green;
+}
+
+.txt-danger {
+   color: $red;
+}
