@@ -1,5 +1,6 @@
 import React from 'react'
 import Chart from 'react-apexcharts'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import statusCards from '../components/assets/JsonData/status-card-data.json'
 import Badge from '../components/badge/index.jsx'
@@ -156,15 +157,18 @@ const renderOrderBody = (item, index) => (
 )
 
 export default function Dashboard() {
+
+   const theme = useSelector(state => state.theme.mode)
+
    return (
       <div>
          <h2 className="page-header">Dashboard</h2>
          <div className="row">
             <div className="col-6">
                <div className="row">
-                  {statusCards.map((item, idx) => {
+                  {statusCards.map((item, index) => {
                      return (
-                        <div className="col-6">
+                        <div className="col-6" key={index}>
                            <StatusCard
                               icon={item.icon}
                               count={item.count}
@@ -178,7 +182,13 @@ export default function Dashboard() {
                <div className="card full-height">
                   {/* chart */}
                   <Chart
-                     options={chartOptions.options}
+                     options={theme.mode === 'theme-mode-dark' ? {
+                        ...chartOptions.options,
+                        theme: { mode: 'dark' }
+                     } : {
+                        ...chartOptions.options,
+                        theme: { mode: 'light' }
+                     }}
                      series={chartOptions.series}
                      type='line'
                      height='100%'

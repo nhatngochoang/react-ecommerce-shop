@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import './thememenu.css'
 
 import { useDispatch } from 'react-redux'
+import { setMode, setColor } from '../../../../redux/theme/themeSlice.js'
 
 const mode_settings = [
    {
@@ -83,14 +84,17 @@ const ThemeMenu = () => {
 
    const dispatch = useDispatch()
 
-   const setMode = mode => {
+   const setThemeMode = mode => {
       setcurrMode(mode.id)
       localStorage.setItem('themeMode', mode.class)
+      dispatch(setMode(mode.class))
    }
 
-   const setColor = color => {
+   const setThemeColor = color => {
       setcurrColor(color.id)
       localStorage.setItem('colorMode', color.class)
+      dispatch(setColor(color.class))
+
    }
 
    useEffect(() => {
@@ -119,7 +123,7 @@ const ThemeMenu = () => {
                <ul className="mode-list">
                   {
                      mode_settings.map((item, index) => (
-                        <li key={index} onClick={() => setMode(item)}>
+                        <li key={index} onClick={() => setThemeMode(item)}>
                            <div className={`mode-list__color ${item.background} ${item.id === currMode ? 'active' : ''}`}>
                               <i className='bx bx-check'></i>
                            </div>
@@ -134,7 +138,7 @@ const ThemeMenu = () => {
                <ul className="mode-list">
                   {
                      color_settings.map((item, index) => (
-                        <li key={index} onClick={() => setColor(item)}>
+                        <li key={index} onClick={() => setThemeColor(item)}>
                            <div className={`mode-list__color ${item.background} ${item.id === currColor ? 'active' : ''}`}>
                               <i className='bx bx-check'></i>
                            </div>
