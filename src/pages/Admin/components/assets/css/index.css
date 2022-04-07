@@ -83,6 +83,10 @@ button {
    text-transform: capitalize;
 }
 
+.card__footer a {
+   color: var(--admin-txt-color);
+}
+
 .light-background {
    background-color: var(--admin-main-bg-light);
    color: #000;

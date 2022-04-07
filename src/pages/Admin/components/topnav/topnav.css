@@ -48,8 +48,13 @@
    padding: 20px;
 }
 
+.notification-item {
+   color: var(--admin-txt-color);
+}
+
 .notification-item:hover {
    background-color: var(--admin-second-bg);
+   color: #fc00ff;
 }
 
 .notification-item > i {
