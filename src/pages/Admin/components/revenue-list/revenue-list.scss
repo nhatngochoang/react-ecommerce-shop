@@ -1,0 +1,19 @@
+@import "../assets/scss/abstracts";
+
+.revenue-list {
+   & > * ~ * {
+      margin-top: 24px;
+   }
+
+   &__item {
+      &__title {
+         @include flex(center, space-between);
+         font-size: $fontSizeMedium;
+         margin-bottom: 8px;
+
+         span {
+            font-weight: 700;
+         }
+      }
+   }
+}
