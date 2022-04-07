@@ -4,7 +4,7 @@ import './box.scss'
 export default function Box(props) {
    const className = {
       box: 'box',
-      purple: props.purple && 'box-purple',
+      mainColor: props.mainColor && 'box-main-color',
       fullhheight: props.fullhheight && 'box-fullheight',
    }
    return (
