@@ -42,12 +42,17 @@
    color: var(--admin-txt-color);
 }
 
-.sidebar__item-inner:hover {
+.sidebar__item-inner:hover span,
+.sidebar__item-inner:hover i {
    color: var(--admin-main-color);
 }
 
 .sidebar__item-inner.active {
    border-radius: var(--admin-border-radius);
    background-image: linear-gradient(to right, var(--admin-main-color), var(--admin-second-color));
+}
+
+.sidebar__item-inner.active span,
+.sidebar__item-inner.active i {
    color: var(--admin-txt-white);
 }
