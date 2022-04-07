@@ -1,8 +1,24 @@
+import {
+   BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale,
+   PointElement, Title,
+   Tooltip
+} from 'chart.js'
 import React from 'react'
-import { colors, data } from '../components/assets/constants'
 import { Bar } from 'react-chartjs-2'
-import SummaryBox, { SummaryBoxSpecial } from '../components/summary-box/SummaryBox.jsx'
+import { colors, data } from '../components/assets/constants'
 import Box from '../components/box/Box.jsx'
+import SummaryBox, { SummaryBoxSpecial } from '../components/summary-box/SummaryBox.jsx'
+
+
+ChartJS.register(
+   CategoryScale,
+   LinearScale,
+   PointElement,
+   BarElement,
+   Title,
+   Tooltip,
+   Legend
+)
 
 export default function Analytics() {
    return (
@@ -85,7 +101,7 @@ const RevenueByMonthsChart = () => {
             Revenue by months
          </div>
          <div>
-            {/* <Bar options={chartOptions} data={chartData} height={`300px`} /> */}
+            <Bar options={chartOptions} data={chartData} height={`300px`} />
          </div>
       </>
    )
