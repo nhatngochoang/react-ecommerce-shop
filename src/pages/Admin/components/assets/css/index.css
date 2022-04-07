@@ -41,22 +41,13 @@
 a:hover {
    color: var(--admin-main-color);
 }
-/*
+
 button {
    cursor: pointer;
    border: 0;
    outline: 0;
    color: var(--admin-txt-color);
-} */
-
-/* input {
-   border: 2px solid transparent;
-   outline: 0;
 }
-
-input:focus {
-   border: 2px solid var(--admin-main-color);
-} */
 
 .page-header {
    margin-bottom: 40px;

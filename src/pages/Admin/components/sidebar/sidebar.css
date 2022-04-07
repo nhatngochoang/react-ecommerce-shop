@@ -34,10 +34,12 @@
 .sidebar__item-inner > i {
    margin-right: 10px;
    font-size: 1.5rem;
+   color: var(--admin-txt-color);
 }
 
 .sidebar__item-inner > span {
    text-transform: capitalize;
+   color: var(--admin-txt-color);
 }
 
 .sidebar__item-inner:hover {
