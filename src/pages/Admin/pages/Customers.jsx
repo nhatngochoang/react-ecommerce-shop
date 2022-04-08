@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Table from '../components/table/index.jsx'
 
 import customerList from '../components/assets/JsonData/customers-list.json'
+import userApi from '../../../api/userApi.js'
 
 const customerTableHead = [
    '',
@@ -28,6 +29,15 @@ const renderBody = (item, index) => (
 )
 
 const Customers = () => {
+   useEffect(() => {
+      const fetchData = async () => {
+         const token = localStorage.getItem('accessToken')
+         const data = await userApi.getUsers(token)
+         console.log("FETCH CUSTOMER DATA SUCCESS: ", data);
+      }
+      fetchData()
+   }, [])
+
    return (
       <div>
          <h2 className="page-header">

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
    login: {
-      currentUser: null,
+      currentUser: JSON.parse(localStorage.getItem('currentUser')) || null,
       isFetching: false,
       error: false
    },
@@ -22,7 +22,7 @@ export const authSlice = createSlice({
       loginSuccess: (state, action) => {
          state.login.isFetching = false
          state.login.error = false
-         state.login.currentUser = action.payload
+         // state.login.currentUser = action.payload
       },
       loginError: (state) => {
          state.login.isFetching = false

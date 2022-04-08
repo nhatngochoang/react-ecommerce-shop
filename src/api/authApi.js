@@ -8,6 +8,7 @@ class AuthApi {
       try {
          const res = await axiosClient.post('/auth/login', user);
          dispatch(loginSuccess(res))
+         localStorage.setItem("currentUser", JSON.stringify(res))
          localStorage.setItem("accessToken", res.accessToken)
          window.location.reload(false);
       } catch (error) {
