@@ -1,6 +1,7 @@
 import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import axiosClient from './axiosClient.js';
+import axiosJWT from './axiosJWT.js';
 
 const userApi = {
    getMe: () => {
@@ -23,7 +24,8 @@ const userApi = {
    getUsers: async (accessToken) => {
       try {
          const url = 'http://localhost:4000/api/users';
-         const res = await axios.get(url, {
+         // const res = await axios.get(url, {
+         const res = await axiosJWT.get(url, {
             headers: {
                token: `Bearer ${accessToken}`
             }
