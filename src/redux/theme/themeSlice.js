@@ -5,8 +5,8 @@ const themeMode = localStorage.getItem('themeMode')
 const themeColor = localStorage.getItem('colorMode')
 
 const initialState = {
-   mode: themeMode,
-   color: themeColor,
+   mode: themeMode || 'theme-mode-light', // default
+   color: themeColor || 'theme-color-blue',
 }
 
 export const themeSlice = createSlice({
