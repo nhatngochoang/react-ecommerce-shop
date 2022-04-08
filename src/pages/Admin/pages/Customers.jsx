@@ -29,6 +29,15 @@ const renderBody = (item, index) => (
 )
 
 const Customers = () => {
+   const handleDeleteUser = () => {
+      const fetchData = async () => {
+         const token = localStorage.getItem('accessToken')
+         const data = await userApi.deleteUser(token)
+         console.log("DELETE CUSTOMER SUCCESS: ", data);
+      }
+      fetchData()
+   }
+
    useEffect(() => {
       const fetchData = async () => {
          const token = localStorage.getItem('accessToken')
@@ -36,7 +45,9 @@ const Customers = () => {
          console.log("FETCH CUSTOMER DATA SUCCESS: ", data);
       }
       fetchData()
+      handleDeleteUser()
    }, [])
+
 
    return (
       <div>

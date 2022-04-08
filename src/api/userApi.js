@@ -34,7 +34,20 @@ const userApi = {
          console.log(error);
       }
    },
-
+   deleteUser: async (accessToken, id = '624abc37be5748fa1ff6e6a0') => {
+      try {
+         const url = `http://localhost:4000/api/users/${id}`;
+         const res = await axios.delete(url, {
+            headers: {
+               token: `Bearer ${accessToken}`
+            }
+         })
+         const data = await res.data
+         return data
+      } catch (error) {
+         console.log(error);
+      }
+   }
 }
 
 export default userApi
