@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 
-import { store } from './redux/store.js'
+import { persistor, store } from './redux/store.js'
 import { Provider } from 'react-redux'
 import 'assets/boxicons-2.0.7/css/boxicons.min.css';
 import 'sass/index.scss';
@@ -11,10 +11,14 @@ import './firebaseui-styling.global.css'; // Import globally. Not with CSS modul
 
 import Layout from 'components/Layout'
 
+import { PersistGate } from 'redux-persist/integration/react'
+
 ReactDOM.render(
    <React.StrictMode>
       <Provider store={store}>
-         <Layout />
+         <PersistGate loading={null} persistor={persistor}>
+            <Layout />
+         </PersistGate>
       </Provider>
    </React.StrictMode>,
    document.getElementById('root')
