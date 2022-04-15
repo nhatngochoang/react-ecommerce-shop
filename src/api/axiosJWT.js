@@ -29,7 +29,8 @@ axiosJWT.interceptors.request.use(
          // }
          config.headers["token"] = "Bearer " + data.accessToken
       }
-      // return config
+      config.headers["token"] = "Bearer " + accessToken
+      return config
    },
    (err) => {
       return Promise.reject(err)

@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useState } from 'react'
 import Table from '../components/table/index.jsx'
-
-import customerList from '../components/assets/JsonData/customers-list.json'
+// import customerList from '../components/assets/JsonData/customers-list.json'
 import userApi from '../../../api/userApi.js'
 
 const customerTableHead = [
-   '',
+   'id',
    'name',
    'email',
    'phone',
@@ -18,17 +17,30 @@ const renderHead = (item, index) => <th key={index}>{item}</th>
 
 const renderBody = (item, index) => (
    <tr key={index}>
-      <td>{item.id}</td>
-      <td>{item.name}</td>
+      <td>{item._id.toString().slice(0, 5).concat('...')}</td>
+      <td>{item.username}</td>
       <td>{item.email}</td>
       <td>{item.phone}</td>
-      <td>{item.total_orders}</td>
-      <td>{item.total_spend}</td>
+      <td>{item.totalOrders}</td>
+      <td>{item.totalSpend}</td>
       <td>{item.location}</td>
    </tr>
 )
 
+const initialState = [{ "_id": "", "username": "", "email": "", "location": "", "phone": "", "totalSpend": 0, "totalOrders": 0 }]
+
 const Customers = () => {
+   const [customerList, setCustomerList] = useState(initialState)
+   const handlefetchData = useCallback(() => {
+      const fetchData = async () => {
+         const token = localStorage.getItem('accessToken')
+         const data = await userApi.getUsers(token)
+         setCustomerList(data)
+         console.log("FETCH CUSTOMER DATA : ", data);
+      }
+      fetchData()
+   }, [])
+
    const handleDeleteUser = () => {
       const fetchData = async () => {
          const token = localStorage.getItem('accessToken')
@@ -39,15 +51,9 @@ const Customers = () => {
    }
 
    useEffect(() => {
-      const fetchData = async () => {
-         const token = localStorage.getItem('accessToken')
-         const data = await userApi.getUsers(token)
-         console.log("FETCH CUSTOMER DATA SUCCESS: ", data);
-      }
-      fetchData()
+      handlefetchData()
       handleDeleteUser()
-   }, [])
-
+   }, [handlefetchData])
 
    return (
       <div>

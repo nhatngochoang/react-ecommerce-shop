@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import './table.css'
 
 const Table = props => {
-
+   console.log(props.bodyData);
    const initDataShow = props.limit && props.bodyData ? props.bodyData.slice(0, Number(props.limit)) : props.bodyData
 
    const [dataShow, setDataShow] = useState(initDataShow)
+
+   useEffect(() => {
+      setDataShow(props.limit && props.bodyData ? props.bodyData.slice(0, Number(props.limit)) : props.bodyData)
+   }, [props])
+
 
    let pages = 1
 

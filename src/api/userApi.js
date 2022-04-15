@@ -24,12 +24,14 @@ const userApi = {
    getUsers: async (accessToken) => {
       try {
          const url = 'http://localhost:4000/api/users';
-         // const res = await axios.get(url, {
-         const res = await axiosJWT.get(url, {
-            headers: {
-               token: `Bearer ${accessToken}`
-            }
-         })
+         // const res = await axios.get(url
+         const res = await axiosJWT.get(url
+            // , {
+            //    headers: {
+            //       token: `Bearer ${accessToken}`
+            //    }
+            // }
+         )
          const data = await res.data
          return data
       } catch (error) {
