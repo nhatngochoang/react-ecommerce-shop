@@ -74,14 +74,17 @@ const Customers = () => {
       fetchData()
    }
 
-   const handleUpdateUser = (values) => {
+   const handleUpdateUser = async (values) => {
       try {
          const fetchData = async () => {
             const token = localStorage.getItem('accessToken')
             const data = await userApi.updateUser(token, values, modalInfo._id)
             console.log("UPDATE CUSTOMER SUCCESS: ", data);
+            if (data === 'Update successfully') {
+               setShowModal(false)
+            }
          }
-         fetchData()
+         await fetchData()
          handleFetchData()
       } catch (error) {
          console.log(error)
@@ -91,7 +94,6 @@ const Customers = () => {
    const handleChange = (e) => {
       setValues({ ...values, [e.target.name]: e.target.value })
    }
-   console.log(values);
 
    const handleSubmit = (e) => {
       e.preventDefault()
@@ -130,6 +132,7 @@ const Customers = () => {
                </ModalBody>
                <ModalFooter>
                   <button className="button-6" type='submit'>Save Changes</button>
+                  <button className="button-6" type='submit'>Delete</button>
                </ModalFooter>
                <button className="modal__close" onClick={() => setShowModal(!showModal)}>close</button>
             </Modal>
