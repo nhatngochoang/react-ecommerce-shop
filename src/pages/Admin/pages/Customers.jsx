@@ -68,7 +68,7 @@ const Customers = () => {
    const handleDeleteUser = () => {
       const fetchData = async () => {
          const token = localStorage.getItem('accessToken')
-         const data = await userApi.deleteUser(token)
+         const data = await userApi.deleteUser(token, modalInfo._id)
          console.log("DELETE CUSTOMER SUCCESS: ", data);
       }
       fetchData()
@@ -132,7 +132,8 @@ const Customers = () => {
                </ModalBody>
                <ModalFooter>
                   <button className="button-6" type='submit'>Save Changes</button>
-                  <button className="button-6" type='submit'>Delete</button>
+                  <br />
+                  <button className="button-6" onClick={handleDeleteUser} type='button'>Delete</button>
                </ModalFooter>
                <button className="modal__close" onClick={() => setShowModal(!showModal)}>close</button>
             </Modal>
