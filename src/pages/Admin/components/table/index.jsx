@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import './table.css'
 
 const Table = props => {
-   console.log(props.bodyData);
    const initDataShow = props.limit && props.bodyData ? props.bodyData.slice(0, Number(props.limit)) : props.bodyData
 
    const [dataShow, setDataShow] = useState(initDataShow)
@@ -53,7 +52,13 @@ const Table = props => {
                   props.bodyData && props.renderBody ? (
                      <tbody>
                         {
-                           dataShow.map((item, index) => props.renderBody(item, index))
+                           dataShow.map((item, index) => {
+                              return (
+                                 <tr key={index} onClick={() => props.handleShowModal(item._id)}>
+                                    {props.renderBody(item, index)}
+                                 </tr>
+                              )
+                           })
                         }
                      </tbody>
                   ) : null

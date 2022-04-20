@@ -2,6 +2,7 @@ import axios from 'axios';
 import firebase from 'firebase/compat/app';
 import axiosClient from './axiosClient.js';
 import axiosJWT from './axiosJWT.js';
+import { AppConstant } from '../const'
 
 const userApi = {
    getMe: () => {
@@ -23,7 +24,7 @@ const userApi = {
    },
    getUsers: async (accessToken) => {
       try {
-         const url = 'http://localhost:4000/api/users';
+         const url = `${AppConstant.BASE_URL}/users`;
          // const res = await axios.get(url
          const res = await axiosJWT.get(url
             // , {
@@ -32,6 +33,21 @@ const userApi = {
             //    }
             // }
          )
+         const data = await res.data
+         return data
+      } catch (error) {
+         console.log(error);
+      }
+   },
+   updateUser: async (token, values, id) => {
+      try {
+         const url = `${AppConstant.BASE_URL}/users/${id}`;
+         // const res = await axios.get(url
+         const res = await axiosJWT.put(url, values, {
+            headers: {
+               token: `Bearer ${token}`
+            }
+         })
          const data = await res.data
          return data
       } catch (error) {

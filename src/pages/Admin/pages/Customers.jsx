@@ -2,10 +2,13 @@ import React, { useEffect, useCallback, useState } from 'react'
 import Table from '../components/table/index.jsx'
 // import customerList from '../components/assets/JsonData/customers-list.json'
 import userApi from '../../../api/userApi.js'
+import Modal, { ModalBody, ModalFooter, ModalHeader } from '../components/modal/Modal.jsx'
+
+import ModalComponent from '../components/modal/styled'
 
 const customerTableHead = [
    'id',
-   'name',
+   'username',
    'email',
    'phone',
    'total orders',
@@ -16,7 +19,7 @@ const customerTableHead = [
 const renderHead = (item, index) => <th key={index}>{item}</th>
 
 const renderBody = (item, index) => (
-   <tr key={index}>
+   <>
       <td>{item._id.toString().slice(0, 5).concat('...')}</td>
       <td>{item.username}</td>
       <td>{item.email}</td>
@@ -24,14 +27,35 @@ const renderBody = (item, index) => (
       <td>{item.totalOrders}</td>
       <td>{item.totalSpend}</td>
       <td>{item.location}</td>
-   </tr>
+   </>
 )
 
-const initialState = [{ "_id": "", "username": "", "email": "", "location": "", "phone": "", "totalSpend": 0, "totalOrders": 0 }]
+const initialState = { "_id": "", "username": "", "email": "", "location": "", "phone": "", "totalSpend": 0, "totalOrders": 0 }
 
 const Customers = () => {
-   const [customerList, setCustomerList] = useState(initialState)
-   const handlefetchData = useCallback(() => {
+   const [customerList, setCustomerList] = useState([initialState])
+   const [showModal, setShowModal] = useState(false)
+   const [modalInfo, setModalInfo] = useState(initialState)
+
+   const [values, setValues] = useState({
+      username: '',
+      email: '',
+      phone: '',
+      totalSpend: 0,
+      totalOrders: 0,
+      location: ''
+   })
+
+   const handleModalInfo = (userID) => {
+      const filterData = customerList.filter(item => userID === item._id)
+      setModalInfo(filterData[0])
+   }
+
+   const handleShowModal = (rowId) => {
+      setShowModal(!showModal)
+      handleModalInfo(rowId)
+   }
+   const handleFetchData = useCallback(() => {
       const fetchData = async () => {
          const token = localStorage.getItem('accessToken')
          const data = await userApi.getUsers(token)
@@ -50,13 +74,67 @@ const Customers = () => {
       fetchData()
    }
 
+   const handleUpdateUser = (values) => {
+      try {
+         const fetchData = async () => {
+            const token = localStorage.getItem('accessToken')
+            const data = await userApi.updateUser(token, values, modalInfo._id)
+            console.log("UPDATE CUSTOMER SUCCESS: ", data);
+         }
+         fetchData()
+         handleFetchData()
+      } catch (error) {
+         console.log(error)
+      }
+   }
+
+   const handleChange = (e) => {
+      setValues({ ...values, [e.target.name]: e.target.value })
+   }
+   console.log(values);
+
+   const handleSubmit = (e) => {
+      e.preventDefault()
+      handleUpdateUser(values)
+      console.log(values)
+   }
+
    useEffect(() => {
-      handlefetchData()
+      handleFetchData()
       handleDeleteUser()
-   }, [handlefetchData])
+   }, [handleFetchData])
 
    return (
       <div>
+         <form onSubmit={handleSubmit}>
+            <Modal
+               show={showModal}
+               setShow={setShowModal}
+            >
+               <ModalHeader>
+                  <h2>Header</h2>
+               </ModalHeader>
+               <ModalBody>
+                  <label htmlFor="username">Username</label>
+                  <input value={values['username']} onChange={handleChange} type="text" id="username" name="username" placeholder={modalInfo.username} />
+                  <label htmlFor="email">Email</label>
+                  <input value={values['email']} onChange={handleChange} type="text" id="email" name="email" placeholder={modalInfo.email} />
+                  <label htmlFor="phone">Phone</label>
+                  <input value={values['phone']} onChange={handleChange} type="text" id="phone" name="phone" placeholder={modalInfo.phone} />
+                  <label htmlFor="totalOrders">Total Orders</label>
+                  <input value={values['totalOrders']} onChange={handleChange} type="text" id="totalOrders" name="totalOrders" placeholder={modalInfo.totalOrders} />
+                  <label htmlFor="totalSpend">Total Spend</label>
+                  <input value={values['totalSpend']} onChange={handleChange} type="text" id="totalSpend" name="totalSpend" placeholder={modalInfo.totalSpend} />
+                  <label htmlFor="location">Location</label>
+                  <input value={values['location']} onChange={handleChange} type="text" id="location" name="location" placeholder={modalInfo.location} />
+               </ModalBody>
+               <ModalFooter>
+                  <button className="button-6" type='submit'>Save Changes</button>
+               </ModalFooter>
+               <button className="modal__close" onClick={() => setShowModal(!showModal)}>close</button>
+            </Modal>
+         </form>
+         {/* <ModalComponent /> */}
          <h2 className="page-header">
             customers
          </h2>
@@ -70,6 +148,7 @@ const Customers = () => {
                         renderHead={(item, index) => renderHead(item, index)}
                         bodyData={customerList}
                         renderBody={(item, index) => renderBody(item, index)}
+                        handleShowModal={handleShowModal}
                      />
                   </div>
                </div>
