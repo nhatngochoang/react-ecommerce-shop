@@ -55,7 +55,9 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
    // Handle token here ...
 
-   const token = await getFirebaseToken()
+   // const token = await getFirebaseToken()
+   const token = localStorage.getItem('accessToken');
+
    if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
    }
