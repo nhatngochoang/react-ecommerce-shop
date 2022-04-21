@@ -103,7 +103,6 @@ const Customers = () => {
 
    useEffect(() => {
       handleFetchData()
-      handleDeleteUser()
    }, [handleFetchData])
 
    return (
@@ -114,7 +113,7 @@ const Customers = () => {
                setShow={setShowModal}
             >
                <ModalHeader>
-                  <h2>Header</h2>
+                  <h2>Edit/Delete</h2>
                </ModalHeader>
                <ModalBody>
                   <label htmlFor="username">Username</label>
