@@ -3,6 +3,10 @@
    "version": "0.1.0",
    "private": true,
    "dependencies": {
+      "@emotion/react": "^11.9.0",
+      "@emotion/styled": "^11.8.1",
+      "@mui/icons-material": "^5.6.2",
+      "@mui/material": "^5.6.2",
       "@paypal/react-paypal-js": "^7.5.0",
       "@reduxjs/toolkit": "^1.7.2",
       "@testing-library/jest-dom": "^5.16.1",
@@ -12,6 +16,7 @@
       "axios": "^0.26.0",
       "cookie": "^0.4.1",
       "firebase": "^9.6.7",
+      "i18next": "^21.6.16",
       "jquery": "^3.6.0",
       "jwt-decode": "^3.1.2",
       "node-sass": "^7.0.1",
@@ -30,7 +35,8 @@
       "redux": "^4.1.2",
       "redux-persist": "^6.0.0",
       "styled-components": "^5.3.5",
-      "web-vitals": "^2.1.4"
+      "web-vitals": "^2.1.4",
+      "chart.js": "^3.7.0"
    },
    "scripts": {
       "start": "react-scripts start",
