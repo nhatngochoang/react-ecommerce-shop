@@ -2,6 +2,7 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import Analytics from '../pages/Admin/pages/Analytics.jsx'
 import Blank from '../pages/Admin/pages/Blank.jsx'
+import Categories from '../pages/Admin/pages/Categories.jsx'
 import Customers from '../pages/Admin/pages/Customers.jsx'
 import Dashboard from '../pages/Admin/pages/Dashboard.jsx'
 import Login from '../pages/Admin/pages/Login.jsx'
@@ -27,7 +28,7 @@ const RoutesAdmin = () => {
          <Route exact path='/admin/products' component={Products} />
          <Route exact path='/admin/orders' component={Orders} />
          <Route exact path='/admin/analytics' component={Analytics} />
-         <Route exact path='/admin/categories' component={Blank} />
+         <Route exact path='/admin/categories' component={Categories} />
          <Route exact path='/admin/discount' component={Blank} />
          <Route exact path='/admin/inventory' component={Blank} />
          <Route exact path='/admin/settings' component={Blank} />

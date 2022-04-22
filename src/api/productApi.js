@@ -5,19 +5,19 @@ import axiosJWT from "./axiosJWT.js";
 // api/productApi.js
 class ProductApi {
    getAll = (params) => {
-      const url = `${AppConstant.API_KEY}/products`;
+      const url = `/products`;
       return axiosClient.get(url, {
          params
       });
    };
 
    getBySlug = (slug) => {
-      const url = `${AppConstant.API_KEY}/product/${slug}`
+      const url = `/product/${slug}`
       return axiosClient.get(url)
    }
 
    getByCategorySlug = (categorySlug) => {
-      const url = `${AppConstant.API_KEY}/products/${categorySlug}`
+      const url = `/products/${categorySlug}`
       return axiosClient.get(url)
    }
 
