@@ -175,6 +175,7 @@ const Products = () => {
    const closeModalAndResetInfo = () => {
       setShowModal(!showModal)
       setModalInfo(initialState)
+      setFile(null)
    }
 
    const handleCreate = async () => {
@@ -217,6 +218,7 @@ const Products = () => {
 
             await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/products`, newProduct);
             setShowModal(false);
+            handleFetchData()
          } else {
             const process1 = axios.post(
                "https://api.cloudinary.com/v1_1/dcjxcptdt/image/upload",
@@ -239,7 +241,90 @@ const Products = () => {
 
             await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/products`, newProduct);
             setShowModal(false);
+            handleFetchData()
          }
+      } catch (err) {
+         console.log(err);
+      }
+   }
+
+   const handleUpdate = async () => {
+      const data = new FormData();
+      data.append("file", file[0]);
+      data.append("upload_preset", "uploads");
+
+      const data2 = new FormData();
+      data2.append("file", file[1]);
+      data2.append("upload_preset", "uploads");
+
+      try {
+         if (file[1]) { // check how many files upload
+            const process1 = axios.put(
+               "https://api.cloudinary.com/v1_1/dcjxcptdt/image/upload",
+               data
+            );
+            const uploadRes = await process1
+            const { url } = uploadRes.data;
+            // console.log(uploadRes)
+
+            const process2 = axios.put(
+               "https://api.cloudinary.com/v1_1/dcjxcptdt/image/upload",
+               data2
+            );
+            const uploadRes2 = await process2
+            // console.log(uploadRes2)
+
+            const { url: url2 } = uploadRes2.data;
+
+            const newProduct = {
+               ...values,
+               image01: url,
+               image02: url2,
+               price: +values.price,
+               discount: +values.discount,
+               sold: +values.sold
+            };
+            console.log(newProduct);
+
+            await axios.put(`${process.env.REACT_APP_API_URL}/api/v1/products/${modalInfo._id}`, newProduct);
+            setShowModal(false);
+            handleFetchData()
+         } else {
+            const process1 = axios.put(
+               "https://api.cloudinary.com/v1_1/dcjxcptdt/image/upload",
+               data
+            );
+            const uploadRes = await process1
+            const { url } = uploadRes.data;
+
+            const newProduct = {
+               ...values,
+               image01: url,
+               image02: 'no image2',
+               price: +values.price,
+               discount: +values.discount,
+               sold: +values.sold,
+               colors: modalInfo.colors,
+               size: modalInfo.size
+            };
+            console.log(newProduct);
+
+            await axios.put(`${process.env.REACT_APP_API_URL}/api/v1/products/${modalInfo._id}`, newProduct);
+            setShowModal(false);
+            handleFetchData()
+            console.log('Updated product');
+            // window.location.reload(false);
+         }
+      } catch (err) {
+         console.log(err);
+      }
+   }
+
+   const handleDelete = async () => {
+      try {
+         await axios.delete(`${process.env.REACT_APP_API_URL}/api/v1/products/${modalInfo._id}`);
+         setShowModal(false);
+         handleFetchData()
       } catch (err) {
          console.log(err);
       }
@@ -249,8 +334,6 @@ const Products = () => {
       handleFetchData()
    }, [handleFetchData])
 
-
-   console.log(modalInfo);
    return (
       <div>
          <form onSubmit={handleSubmit}>
@@ -331,6 +414,7 @@ const Products = () => {
                               backgroundColor='orange'
                               icon="bx bxs-edit"
                               animate={true}
+                              onClick={handleUpdate}
                            >
                               Edit
                            </Button>
@@ -340,6 +424,7 @@ const Products = () => {
                               backgroundColor='red'
                               icon="bx bxs-trash"
                               animate={true}
+                              onClick={handleDelete}
                            >
                               Delete
                            </Button>
