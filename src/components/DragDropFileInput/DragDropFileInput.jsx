@@ -1,10 +1,12 @@
 import React from 'react'
 import DragDropFileInputComponent from './components/DragDropFileInputComponent.jsx'
 
-export default function DragDropFileInput() {
+export default function DragDropFileInput(props) {
 
+   const { setFile } = props
    const onFileChange = (files) => {
       console.log("Files Input:", files)
+      setFile(files)
    }
    return (
       <div className="file-input-box">
