@@ -3,8 +3,8 @@ import Table from '../components/table/index.jsx'
 import productApi from '../../../api/productApi.js'
 import Modal, { ModalBody, ModalFooter, ModalHeader } from '../components/modal/Modal.jsx'
 import Button from '../../../components/Button.jsx'
-import DragDropFileInput from '../../../components/DragDropFileInput/DragDropFileInput.jsx'
 import axios from 'axios'
+import DragDropFileInputComponent from '../../../components/DragDropFileInput/components/DragDropFileInputComponent.jsx'
 
 const productTableHead = [
    'id',
@@ -45,25 +45,27 @@ const initialState = {
    price: 0, discount: 0, sold: 0, colors: [], size: []
 }
 
+const initFormState = {
+   title: '',
+   description: '',
+   image01: '',
+   image02: '',
+   categorySlug: '',
+   slug: '',
+   price: '',
+   discount: '',
+   sold: '',
+   colors: [],
+   size: []
+}
+
 const Products = () => {
    const [productList, setProductList] = useState([initialState])
    const [showModal, setShowModal] = useState(false)
    const [modalInfo, setModalInfo] = useState(initialState)
    const [headerLabel, setHeaderLabel] = useState('Edit/Delete')
-   const [values, setValues] = useState({
-      title: '',
-      description: '',
-      image01: '',
-      image02: '',
-      categorySlug: '',
-      slug: '',
-      price: '',
-      discount: '',
-      sold: '',
-      colors: [],
-      size: []
-   })
-   const [file, setFile] = useState(null);
+   const [values, setValues] = useState(initFormState)
+   const [file, setFile] = useState([]);
 
    const [colors, setColors] = useState(['']);
    const [sizes, setSizes] = useState(['']);
@@ -175,7 +177,7 @@ const Products = () => {
    const closeModalAndResetInfo = () => {
       setShowModal(!showModal)
       setModalInfo(initialState)
-      setFile(null)
+      setFile([])
    }
 
    const handleCreate = async () => {
@@ -217,7 +219,8 @@ const Products = () => {
             console.log(newProduct);
 
             await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/products`, newProduct);
-            setShowModal(false);
+            setValues(initFormState)
+            closeModalAndResetInfo()
             handleFetchData()
          } else {
             const process1 = axios.post(
@@ -240,7 +243,8 @@ const Products = () => {
             console.log(newProduct);
 
             await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/products`, newProduct);
-            setShowModal(false);
+            setValues(initFormState)
+            closeModalAndResetInfo()
             handleFetchData()
          }
       } catch (err) {
@@ -287,7 +291,8 @@ const Products = () => {
             console.log(newProduct);
 
             await axios.put(`${process.env.REACT_APP_API_URL}/api/v1/products/${modalInfo._id}`, newProduct);
-            setShowModal(false);
+            setValues(initFormState)
+            closeModalAndResetInfo()
             handleFetchData()
          } else {
             const process1 = axios.put(
@@ -310,7 +315,8 @@ const Products = () => {
             console.log(newProduct);
 
             await axios.put(`${process.env.REACT_APP_API_URL}/api/v1/products/${modalInfo._id}`, newProduct);
-            setShowModal(false);
+            setValues(initFormState)
+            closeModalAndResetInfo()
             handleFetchData()
             console.log('Updated product');
             // window.location.reload(false);
@@ -323,7 +329,8 @@ const Products = () => {
    const handleDelete = async () => {
       try {
          await axios.delete(`${process.env.REACT_APP_API_URL}/api/v1/products/${modalInfo._id}`);
-         setShowModal(false);
+         setValues(initFormState)
+         closeModalAndResetInfo()
          handleFetchData()
       } catch (err) {
          console.log(err);
@@ -400,7 +407,9 @@ const Products = () => {
                      )}
                      <label >Upload Images</label>
                      {/* Drag Drop */}
-                     <DragDropFileInput setFile={setFile} />
+                     <DragDropFileInputComponent
+                        file={file}
+                        setFile={setFile} />
                   </div>
                </ModalBody>
                <ModalFooter>
