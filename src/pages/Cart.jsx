@@ -65,7 +65,7 @@ const Cart = () => {
    // Cach 2
    const createOrder2 = async (data) => {
       try {
-         const res = await axios.post("http://localhost:4000/api/orders", data);
+         const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, data);
          if (res.status === 201) {
             dispatch(resetCart());
             history.push(`/orders/${res.data._id}`);

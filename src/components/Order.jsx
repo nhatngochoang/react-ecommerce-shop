@@ -27,7 +27,7 @@ function Order(props) {
 
    useEffect(() => {
       const fetchOrderByID = async () => {
-         const res = await axios.get(`http://localhost:4000/api/orders/${props.match.params.id}`);
+         const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/${props.match.params.id}`);
          console.log(res);
          setOrder(res.data)
       }

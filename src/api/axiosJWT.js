@@ -5,7 +5,7 @@ let axiosJWT = axios.create()
 
 const refreshToken = async () => {
    try {
-      const url = `http://localhost:4000/api/auth/refresh`;
+      const url = `${process.env.REACT_APP_API_URL}/api/auth/refresh`;
       const res = await axios.post(url, {
          withCredentials: true,
       })
