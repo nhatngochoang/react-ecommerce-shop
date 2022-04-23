@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { Route, Switch } from 'react-router-dom'
 import NotFound from '../components/NotFound.jsx'
 import Order from '../components/Order.jsx'
+import SearchFilter from '../components/SearchFilter/SearchFilter.jsx'
 import Whale from '../components/Whale.jsx'
 import Admin from '../pages/Admin/index.jsx'
 import SignIn from '../pages/Auth/pages/SignIn/index.jsx'
@@ -20,6 +21,7 @@ const Routes = () => {
          <Route path='/catalog/:slug' component={Product} />
          <Route path='/catalog' component={Catalog} />
          <Route path='/cart' component={Cart} />
+         <Route path='/search' component={SearchFilter} />
          <Route path='/signin' component={SignIn} />
          <Route path='/signup' component={SignUp} />
          <Route path='/orders/:id' component={Order} />

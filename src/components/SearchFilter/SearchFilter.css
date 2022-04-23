@@ -1,0 +1,13 @@
+.search-list {
+   margin-top: 25px !important;
+   padding: 0;
+   text-align: center;
+}
+
+.search-list-item {
+   width: 25%;
+   margin-bottom: 20px;
+   font-size: 25px;
+   color: #444;
+   font-weight: 300;
+}
