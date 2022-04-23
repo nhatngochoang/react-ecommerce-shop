@@ -27,7 +27,7 @@ const renderBody = (item, index) => (
    <>
       <td>{item._id.toString().slice(0, 5).concat('...')}</td>
       <td>{item.title}</td>
-      <td>{item.description}</td>
+      <td>{item.description.toString().slice(0, 50).concat('...')}</td>
       <td><img style={{ maxWidth: '100px' }} src={item.image01} alt="anh san pham 1" /></td>
       <td><img style={{ maxWidth: '100px' }} src={item.image02} alt="anh san pham 2" /></td>
       <td>{item.categorySlug}</td>
@@ -136,7 +136,6 @@ const Products = () => {
 
    const handleColorCheckboxChange = (color) => {
       const res = modalInfo.colors.findIndex(item => item === color)
-      console.log(res);
       if (res === -1) {
          const newColors = [...modalInfo.colors, color]
          setModalInfo({
@@ -155,16 +154,16 @@ const Products = () => {
    const handleSizeCheckboxChange = (size) => {
       const res = modalInfo.size.findIndex(item => item === size)
       if (res === -1) {
-         const newColors = [...modalInfo.size, size]
+         const newSize = [...modalInfo.size, size]
          setModalInfo({
             ...modalInfo,
-            size: newColors,
+            size: newSize,
          })
       } else {
-         const newColors = [...modalInfo.size.filter(item => item !== size)]
+         const newSize = [...modalInfo.size.filter(item => item !== size)]
          setModalInfo({
             ...modalInfo,
-            size: newColors,
+            size: newSize,
          })
       }
    }
@@ -214,7 +213,9 @@ const Products = () => {
                image02: url2,
                price: +values.price,
                discount: +values.discount,
-               sold: +values.sold
+               sold: +values.sold,
+               size: modalInfo.size,
+               colors: modalInfo.colors
             };
             console.log(newProduct);
 
@@ -286,7 +287,9 @@ const Products = () => {
                image02: url2,
                price: +values.price,
                discount: +values.discount,
-               sold: +values.sold
+               sold: +values.sold,
+               size: modalInfo.size,
+               colors: modalInfo.colors
             };
             console.log(newProduct);
 

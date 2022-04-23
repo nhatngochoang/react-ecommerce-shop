@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Helmet from '../components/Helmet.jsx';
 import HeroSlider from '../components/HeroSlider.jsx';
 import Section, { SectionBody, SectionTitle } from '../components/Section.jsx'
@@ -6,14 +6,46 @@ import Grid from '../components/Grid.jsx';
 import PolicyCard from '../components/PolicyCard.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import { Link } from 'react-router-dom';
-
 import heroSliderData from '../assets/fake-data/hero-slider.js';
 import policy from '../assets/fake-data/policy.js';
-import productData from '../assets/fake-data/products.js'
-
 import banner from '../assets/images/banner.png'
-import ProductTest from '../components/ProductTest.jsx';
+import productApi from '../api/productApi.js';
+import axios from 'axios';
+// import productList from '../assets/fake-data/products.js'
+// import ProductTest from '../components/ProductTest.jsx';
+
+const initialState = {
+   "_id": "", "title": "", "description": "", "image01": "", "image02": "", "categorySlug": '', "slug": '',
+   price: 0, discount: 0, sold: 0, colors: [], size: []
+}
+
+const getProducts = (products, count) => {
+   const max = products.length - count
+   const min = 0
+   const start = Math.floor(Math.random() * (max - min) + min)
+   return products.slice(start, start + count)
+}
+
 const Home = () => {
+   const [productList, setProductList] = useState([initialState])
+
+   const handleFetchData = useCallback((props) => {
+      const fetchData = async () => {
+         try {
+            const response = await productApi.getAll();
+            setProductList(response);
+            console.log("FETCH PRODUCT DATA : ", response);
+         } catch (err) {
+            console.log(err)
+         }
+      }
+      fetchData()
+   }, [])
+
+   useEffect(() => {
+      handleFetchData()
+   }, [handleFetchData])
+
    return (
       <Helmet title="Trang Chủ">
          {/* <ProductTest /> */}
@@ -49,8 +81,8 @@ const Home = () => {
             </SectionBody>
          </Section>
          {/* End Policy  */}
-         <Link to="/whale?type=beluga">Beluga Whale</Link>
-         <Link to="/whale?type=blue">Blue Whale</Link>
+         {/* <Link to="/whale?type=beluga">Beluga Whale</Link>
+         <Link to="/whale?type=blue">Blue Whale</Link> */}
          {/* Begin best selling section */}
          <Section>
             <SectionTitle>
@@ -64,8 +96,9 @@ const Home = () => {
                   gap={20}
                >
                   {
-                     productData.getProducts(4).map((item, index) => (
+                     getProducts(productList, 4).map((item, index) => (
                         <ProductCard
+                           id={item._id}
                            key={index}
                            img01={item.image01}
                            img02={item.image02}
@@ -92,8 +125,9 @@ const Home = () => {
                   gap={20}
                >
                   {
-                     productData.getProducts(8).map((item, index) => (
+                     getProducts(productList, 8).map((item, index) => (
                         <ProductCard
+                           id={item._id}
                            key={index}
                            img01={item.image01}
                            img02={item.image02}
@@ -131,8 +165,9 @@ const Home = () => {
                   gap={20}
                >
                   {
-                     productData.getProducts(12).map((item, index) => (
+                     getProducts(productList, 12).map((item, index) => (
                         <ProductCard
+                           id={item._id}
                            key={index}
                            img01={item.image01}
                            img02={item.image02}
