@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './sidebar.css'
 import logo from '../assets/images/logo.png'
 
@@ -24,12 +24,45 @@ import SidebarItem from './SidebarItem.jsx'
 
 const Sidebar = props => {
 
-   const activeItem = sidebar_items.findIndex(item => item.route === props.location.pathname)
+
+   const sidebarRef = useRef(null)
+   const indicatorRef = useRef(null)
+
+   const [activeIndex, setActiveIndex] = useState(0)
+   const [stepHeight, setStepHeight] = useState(0)
+
+   useEffect(() => {
+      const activeIndex = sidebar_items.findIndex(item => item.route === props.location.pathname)
+      setActiveIndex(activeIndex)
+   }, [props.location.pathname])
+
+   useEffect(() => {
+      const timer = setTimeout(() => {
+         const sidebarItem = sidebarRef.current.querySelector('.sidebar__item')
+         indicatorRef.current.style.height = `
+           ${sidebarItem.clientHeight * 1.1}px
+        `
+         setStepHeight(sidebarItem.clientHeight)
+      }, 50);
+
+      return () => {
+         clearTimeout(timer);
+      };
+   }, [])
+
 
    return (
-      <div className='sidebar'>
+      <div className='sidebar' ref={sidebarRef}>
          <div className="sidebar__logo">
             <img src={logo} alt="company logo" />
+         </div>
+         <div
+            ref={indicatorRef}
+            className="sidebar__indicator"
+            style={{
+               transform: `translateX(-50%) translateY(${activeIndex * stepHeight - 2}px)`
+            }}
+         >
          </div>
          {
             sidebar_items.map((item, index) => (
@@ -37,7 +70,7 @@ const Sidebar = props => {
                   <SidebarItem
                      title={item.display_name}
                      icon={item.icon}
-                     active={index === activeItem}
+                     active={index === activeIndex}
                   />
                </Link>
             ))
