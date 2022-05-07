@@ -10,6 +10,7 @@ import SignIn from '../pages/Auth/pages/SignIn/index.jsx'
 import SignUp from '../pages/Auth/pages/SignUp/index.jsx'
 import Cart from '../pages/Cart'
 import Catalog from '../pages/Catalog'
+import Contact from '../pages/Contact.jsx'
 import Home from '../pages/Home'
 import Product from '../pages/Product'
 
@@ -21,6 +22,8 @@ const Routes = () => {
          <Route path='/catalog/:slug' component={Product} />
          <Route path='/catalog' component={Catalog} />
          <Route path='/cart' component={Cart} />
+         <Route path='/contact' component={Contact} />
+
          <Route path='/search' component={SearchFilter} />
          <Route path='/signin' component={SignIn} />
          <Route path='/signup' component={SignUp} />

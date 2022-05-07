@@ -13,7 +13,7 @@ const footerAboutLinks = [
    },
    {
       display: "Liên hệ",
-      path: "/about"
+      path: "/contact"
    },
    {
       display: "Tuyển dụng",
