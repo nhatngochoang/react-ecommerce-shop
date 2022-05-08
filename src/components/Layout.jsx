@@ -12,6 +12,8 @@ import { getMe } from "../redux/firebase/userSlice.js";
 import Routes from "../routes/Routes";
 import ProductViewModal from "./ProductViewModal.jsx";
 
+import MessengerCustomerChat from 'react-messenger-customer-chat';
+
 // Configure Firebase.
 const config = {
    apiKey: process.env.REACT_APP_FIREBASE_API,
@@ -109,6 +111,10 @@ const Layout = () => {
                               </div>
                               <Footer />
                               <ProductViewModal />
+                              <MessengerCustomerChat
+                                 pageId="102335915815631"
+                                 appId="734579064349349"
+                              />
                            </div>
                         </Route>
                      </Switch>
