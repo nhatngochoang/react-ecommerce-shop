@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from "../sass/components/Cart.module.css";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -22,7 +22,35 @@ import orderApi from '../api/orderApi.js'
 import OrderDetail from '../components/OrderDetail.jsx';
 import { resetCart } from '../redux/shopping-cart/cartItemsSlice.js';
 
+
+import { ethers } from 'ethers'
+import { Buffer } from 'buffer'
+
+import useModal from '../components/Modal/useModal.js';
+
+
+const Account = process.env.REACT_APP_ACCOUNT
+const PrivateKey = process.env.REACT_APP_PRIVATE_KEY
+const RpcHttpUrl = process.env.REACT_APP_RPC_HTTP_URL
+
+const EthereumProvider = new ethers.getDefaultProvider(RpcHttpUrl)
+const HexPrivateKey = new Buffer.from(PrivateKey, 'hex') // cv private key to hex format
+const Signer = new ethers.Wallet(HexPrivateKey, EthereumProvider)
+
+async function run() {
+   const balance = await EthereumProvider.getBalance(Account)
+   console.log('ETH balance(wei): ', balance.toString());
+   const balanceInEth = ethers.utils.formatEther(balance)
+   console.log('balanceInEth: ', balanceInEth);
+   console.log('ETH to wei: ', ethers.utils.parseEther('1.0').toString());
+
+   const blockNumber = await EthereumProvider.getBlockNumber()
+   console.log('blockNumber: ', blockNumber);
+}
+
+
 const Cart = () => {
+   run()
 
    const cartItems = useSelector((state) => state.cartItems.value)
 
@@ -31,6 +59,26 @@ const Cart = () => {
    const [totalProducts, setTotalProducts] = useState(0)
 
    const [totalPrice, setTotalPrice] = useState(0)
+
+   const { isShowing, toggle } = useModal();
+
+   const [show, setShow] = useState(false)
+   const [privateKey, setPrivateKey] = useState('')
+   const [transaction_hash, setTransactionHash] = useState('')
+
+   async function transferEth(value) {
+      const transaction = await Signer.sendTransaction({
+         to: '0x4281ecf07378ee595c564a59048801330f3084ee', // receiver
+         value: ethers.utils.parseEther(value) // eth amount to transfer in wei
+      })
+      console.log('TRANSACTION_HASH: ', transaction.hash);
+      setTransactionHash(transaction.hash)
+   }
+
+   const handleSubmit = (e, value = '0.0001') => {
+      e.preventDefault()
+      transferEth(value)
+   }
 
    useEffect(() => {
       setCartProducts(productData.getCartItemsInfo(cartItems))
@@ -68,6 +116,11 @@ const Cart = () => {
          const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/orders`, data);
          if (res.status === 201) {
             dispatch(resetCart());
+            const userID = localStorage.getItem('userID')
+            const res2 = await axios.get(`${process.env.REACT_APP_API_URL}/api/userslist/${userID}`)
+            const clone = JSON.parse(JSON.stringify(res2.data));
+            clone.orders.push(res.data._id)
+            await axios.put(`${process.env.REACT_APP_API_URL}/api/users/${userID}`, clone);
             history.push(`/orders/${res.data._id}`);
          }
       } catch (err) {
@@ -154,6 +207,12 @@ const Cart = () => {
                         <Button size="block" onClick={() => setCash(true)}>
                            THANH TOÁN KHI NHẬN HÀNG!
                         </Button>
+                        <div style={{ marginBottom: '10px', marginTop: '10px' }} >
+                           <Button size="block" onClick={() => setShow(true)}>
+                              THANH TOÁN BẰNG VÍ ĐIỆN TỬ METAMASK!
+                           </Button>
+                        </div>
+
                         <PayPalScriptProvider
                            options={{
                               "client-id": "AVNesOwqXbzxJfeHgYkcjfu9aQ9CIguJvHGBwCAS7T2F4akkx6WyEB107d6ZB0KGG0RamQYbmxqFZRIQ",
@@ -189,6 +248,22 @@ const Cart = () => {
                      <CartItem item={item} key={index} />
                   ))
                }
+               {show && <form onSubmit={handleSubmit} style={{ width: '50%' }}>
+                  <br />
+                  <label htmlFor="privatekey">
+                     <h3>Enter wallet private key</h3>
+                  </label>
+                  <br />
+                  <input type="password" className="input1" id="privatekey"
+                     value={privateKey}
+                     onChange={e => setPrivateKey(e.target.value)}
+                  />
+                  <br />
+                  <Button size="block">
+                     Submit Transaction
+                  </Button>
+                  <h3>Transaction_hash: {transaction_hash}</h3>
+               </form>}
             </div>
             {cash && <OrderDetail total={totalPrice} createOrder={createOrder2} onClose={onClose} />}
          </div>
@@ -197,3 +272,44 @@ const Cart = () => {
 }
 
 export default Cart
+
+
+
+
+
+
+
+
+
+
+function UserAvatar(props) {
+   return <img src={props.src} />
+}
+
+function Username(props) {
+   return <span>{props.name}</span>
+}
+
+function User() {
+   const user = useRef({
+      name: "Aleem Isiaka",
+      avatarURL: "https://icotar.com/avatar/jake.png?bg=e91e63",
+   })
+
+   const [, setForceUpdate] = useState(Date.now());
+
+   useEffect(() => {
+      setTimeout(() => {
+         user.current = {
+            name: "Isiaka Aleem",
+            avatarURL: "https://icotar.com/avatar/craig.png?s=50", // a new image
+         };
+
+         setForceUpdate();
+      }, 5000)
+   })
+   return (<div>
+      <Username name={user.name} />
+      <UserAvatar src={user.avatarURL} />
+   </div>);
+}
