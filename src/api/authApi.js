@@ -10,7 +10,10 @@ class AuthApi {
          dispatch(loginSuccess(res))
          localStorage.setItem("currentUser", JSON.stringify(res))
          localStorage.setItem("accessToken", res.accessToken)
-         window.location.reload(false);
+         localStorage.setItem("userID", res._id)
+         if (history) {
+            window.location.reload(false);
+         }
       } catch (error) {
          dispatch(loginError())
       }

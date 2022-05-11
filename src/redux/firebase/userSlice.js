@@ -7,14 +7,22 @@ export const getMe = createAsyncThunk('user/getMe', async (params, thunkApi) => 
    return currentUser // currentUser === action.payload
 })
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
    name: 'user',
    initialState: {
       current: {},
       loading: false,
-      error: null
+      error: null,
+      userID: null
    },
-   reducers: {},
+   reducers: {
+      setUserID: (state, action) => {
+         state.userID = action.payload
+      },
+      setUserIDNull: (state) => {
+         state.userID = null
+      }
+   },
    extraReducers: {
       [getMe.pending]: state => {
          state.loading = true;
@@ -29,5 +37,10 @@ const userSlice = createSlice({
       }
    },
 })
+
+export const {
+   setUserID,
+   setUserIDNull
+} = userSlice.actions
 
 export default userSlice.reducer

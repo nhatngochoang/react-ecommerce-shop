@@ -1,7 +1,10 @@
 import "firebase/compat/auth";
 import "firebase/compat/messaging";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import authApi from "../../../../api/authApi.js";
 import "../../../../sass/components/auth/auth.css";
 import SignOut from "../SignOut/index.jsx";
 
@@ -9,6 +12,26 @@ const icon01 = require("../../../../assets/icons/icon-google.png");
 
 const SignUp = (props) => {
    const { handleAuth, handleAuthStatus, isSignedIn, token } = props;
+
+   const [values, setValues] = useState({
+      username: '',
+      email: '',
+      password: '',
+   })
+
+   const dispatch = useDispatch()
+   const history = useHistory()
+
+   const handleChange = (e) => {
+      setValues({ ...values, [e.target.name]: e.target.value })
+   }
+
+   const handleSubmit = async (e) => {
+      e.preventDefault()
+      console.log("REGISTER INFO: ", values)
+      await authApi.register(values, dispatch, history)
+      alert('REGISTER SUCCESS')
+   }
 
    if (!isSignedIn) {
       return (
@@ -21,7 +44,7 @@ const SignUp = (props) => {
                            <i className="bx bx-arrow-back go-back--icon"></i>
                         </Link>
                      </div>
-                     <form className="login100-form validate-form flex-sb flex-w">
+                     <form className="login100-form validate-form flex-sb flex-w" onSubmit={handleSubmit}>
                         <span className="login100-form-title">Sign Up</span>
                         {/* <Link to="#" className="btn-face m-b-20">
                            <i className="fa fa-facebook-official"></i>
@@ -38,9 +61,27 @@ const SignUp = (props) => {
                            className="wrap-input100 validate-input"
                            data-validate="Username is required"
                         >
-                           <input className="input100" type="text" name="username" />
+                           <input className="input100" type="text" name="username"
+                              value={values['username']}
+                              onChange={handleChange}
+                           />
                            <span className="focus-input100"></span>
                         </div>
+
+                        <div className="p-t-31 p-b-9">
+                           <span className="txt1">Email</span>
+                        </div>
+                        <div
+                           className="wrap-input100 validate-input"
+                           data-validate="Email is required"
+                        >
+                           <input className="input100" type="email" name="email"
+                              value={values['email']}
+                              onChange={handleChange}
+                           />
+                           <span className="focus-input100"></span>
+                        </div>
+
                         <div className="p-t-13 p-b-9">
                            <span className="txt1">Password</span>
 
@@ -52,10 +93,13 @@ const SignUp = (props) => {
                            className="wrap-input100 validate-input"
                            data-validate="Password is required"
                         >
-                           <input className="input100" type="password" name="pass" />
+                           <input className="input100" type="password" name="password"
+                              value={values['password']}
+                              onChange={handleChange}
+                           />
                            <span className="focus-input100"></span>
                         </div>
-                        <div className="p-t-13 p-b-9">
+                        {/* <div className="p-t-13 p-b-9">
                            <span className="txt1">Confirm Password</span>
                         </div>
                         <div
@@ -64,9 +108,9 @@ const SignUp = (props) => {
                         >
                            <input className="input100" type="password" name="pass" />
                            <span className="focus-input100"></span>
-                        </div>
+                        </div> */}
                         <div className="container-login100-form-btn m-t-17">
-                           <button className="login100-form-btn">Sign Up</button>
+                           <button className="login100-form-btn" type="submit">Sign Up</button>
                         </div>
                         <div className="w-full text-center p-t-55">
                            <span className="txt2">Already have an account?</span>

@@ -1,8 +1,11 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/messaging";
-import React from "react";
+import React, { useState } from "react";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import authApi from "../../../../api/authApi.js";
 import "../../../../sass/components/auth/auth.css";
 import SignOut from "../SignOut/index.jsx";
 
@@ -10,6 +13,28 @@ const icon01 = require("../../../../assets/icons/icon-google.png");
 
 const SignIn = (props) => {
    const { handleAuth, handleAuthStatus, isSignedIn, uiConfig, token } = props;
+
+   const [values, setValues] = useState({
+      username: '',
+      password: '',
+   })
+
+   const dispatch = useDispatch()
+   const history = useHistory()
+
+   const handleChange = (e) => {
+      setValues({ ...values, [e.target.name]: e.target.value })
+   }
+
+   const handleSubmit = async (e) => {
+      e.preventDefault()
+      console.log("LOGIN INFO: ", values)
+      // authApi.login(values, dispatch, navigate)
+      await authApi.login(values, dispatch)
+      await alert('LOGIN SUCCESS!')
+      history.push('/')
+      document.location.reload()
+   }
 
    if (!isSignedIn) {
       return (
@@ -22,7 +47,7 @@ const SignIn = (props) => {
                            <i className="bx bx-arrow-back go-back--icon"></i>
                         </Link>
                      </div>
-                     <form className="login100-form validate-form flex-sb flex-w">
+                     <form className="login100-form validate-form flex-sb flex-w" onSubmit={handleSubmit}>
                         <span className="login100-form-title p-b-53">Sign In With</span>
                         <div style={{ width: "100%", transform: "scale(1.5)" }}>
                            <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
@@ -43,7 +68,10 @@ const SignIn = (props) => {
                            className="wrap-input100 validate-input"
                            data-validate="Username is required"
                         >
-                           <input className="input100" type="text" name="username" />
+                           <input className="input100" type="text" name="username"
+                              value={values['username']}
+                              onChange={handleChange}
+                           />
                            <span className="focus-input100"></span>
                         </div>
 
@@ -57,11 +85,14 @@ const SignIn = (props) => {
                            className="wrap-input100 validate-input"
                            data-validate="Password is required"
                         >
-                           <input className="input100" type="password" name="pass" />
+                           <input className="input100" type="password" name="password"
+                              value={values['password']}
+                              onChange={handleChange}
+                           />
                            <span className="focus-input100"></span>
                         </div>
                         <div className="container-login100-form-btn m-t-17">
-                           <button className="login100-form-btn">Sign In</button>
+                           <button className="login100-form-btn" type="submit">Sign In</button>
                         </div>
                         <div className="w-full text-center p-t-55">
                            <span className="txt2">Not a member?</span>
