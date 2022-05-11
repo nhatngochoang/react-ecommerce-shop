@@ -24,13 +24,13 @@ const renderBody = (item, index) => (
       <td>{item.username}</td>
       <td>{item.email}</td>
       <td>{item.phone}</td>
-      <td>{item.totalOrders}</td>
+      <td>{item.orders.length}</td>
       <td>{item.totalSpend}</td>
       <td>{item.location}</td>
    </>
 )
 
-const initialState = { "_id": "", "username": "", "email": "", "location": "", "phone": "", "totalSpend": 0, "totalOrders": 0 }
+const initialState = { "_id": "", "username": "", "email": "", "location": "", "phone": "", "totalSpend": 0, "totalOrders": 0, orders: [""], }
 
 const Customers = () => {
    const [customerList, setCustomerList] = useState([initialState])
@@ -49,6 +49,12 @@ const Customers = () => {
    const handleModalInfo = (userID) => {
       const filterData = customerList.filter(item => userID === item._id)
       setModalInfo(filterData[0])
+      console.log(filterData)
+      setValues({
+         ...values,
+         totalSpend: filterData[0].totalSpend,
+         totalOrders: filterData[0].orders.length,
+      })
    }
 
    const handleShowModal = (rowId) => {
@@ -123,7 +129,7 @@ const Customers = () => {
                   <label htmlFor="phone">Phone</label>
                   <input value={values['phone']} onChange={handleChange} type="text" id="phone" name="phone" placeholder={modalInfo.phone} />
                   <label htmlFor="totalOrders">Total Orders</label>
-                  <input value={values['totalOrders']} onChange={handleChange} type="text" id="totalOrders" name="totalOrders" placeholder={modalInfo.totalOrders} />
+                  <input value={values['totalOrders']} onChange={handleChange} type="text" id="totalOrders" name="totalOrders" placeholder={modalInfo.orders.length} />
                   <label htmlFor="totalSpend">Total Spend</label>
                   <input value={values['totalSpend']} onChange={handleChange} type="text" id="totalSpend" name="totalSpend" placeholder={modalInfo.totalSpend} />
                   <label htmlFor="location">Location</label>

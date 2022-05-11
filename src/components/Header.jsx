@@ -53,6 +53,7 @@ const Header = ({ handleAuth }) => {
 
    const cartItems = useSelector((state) => state.cartItems.value)
 
+   const userID = useSelector(state => state.user.userID)
 
 
    return (
@@ -105,8 +106,14 @@ const Header = ({ handleAuth }) => {
                         </div>
                      </Link>
                   </div>
-                  <div className="header__menu__item header__menu__right__item"
+                  {(userID !== null) && <div className="header__menu__item header__menu__right__item"
                      style={{ marginLeft: 0 }}>
+                     <Link to="/orderslist">
+                        <i className='bx bx-notepad'></i>
+                     </Link>
+                  </div>}
+                  <div className="header__menu__item header__menu__right__item"
+                     style={{ marginLeft: 20 }}>
                      <Link to="/signin" onClick={handleAuth}>
                         <i className="bx bx-user"></i>
                      </Link>
