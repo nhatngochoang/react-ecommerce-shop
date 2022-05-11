@@ -8,11 +8,13 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Admin from "../pages/Admin/index.jsx";
 import AuthOpen from "../pages/Auth";
-import { getMe } from "../redux/firebase/userSlice.js";
+import userSlice, { getMe } from "../redux/firebase/userSlice.js";
 import Routes from "../routes/Routes";
 import ProductViewModal from "./ProductViewModal.jsx";
 
 import MessengerCustomerChat from 'react-messenger-customer-chat';
+
+import { setUserID, setUserIDNull } from '../redux/firebase/userSlice.js'
 
 // Configure Firebase.
 const config = {
@@ -83,6 +85,15 @@ const Layout = () => {
       });
       return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
    }, [dispatch]);
+
+   useEffect(() => {
+      const userID = localStorage.getItem("userID")
+      if (userID) {
+         dispatch(setUserID(userID))
+      } else {
+         dispatch(setUserIDNull())
+      }
+   }, [dispatch])
 
    return (
       <BrowserRouter>

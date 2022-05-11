@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import styles from "../sass/components/Order.module.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Link } from "@mui/material";
 const paidImg = require("../assets/images/img/paid.png")
 
 const checkedImg = require("../assets/images/img/checked.png")
@@ -28,7 +29,6 @@ function Order(props) {
    useEffect(() => {
       const fetchOrderByID = async () => {
          const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/orders/${props.match.params.id}`);
-         console.log(res);
          setOrder(res.data)
       }
 
@@ -146,6 +146,7 @@ function Order(props) {
                </div>
             </div>
          </div>
+         <a href="/orderslist">Quay lại danh sách</a>
       </>
    );
 }

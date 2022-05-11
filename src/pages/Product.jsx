@@ -43,7 +43,7 @@ const Product = (props) => {
       const fetchProductList = async () => {
          try {
             const response = await productApi.getBySlug(props.match.params.slug);
-            console.log('Fetch product by Slug successfully: ', response);
+            console.log('Fetch product by Slug successfully! ');
             setProduct(response);
          } catch (error) {
             console.log('Failed to fetch product list: ', error);
