@@ -448,7 +448,7 @@ const Products = () => {
             </Modal>
          </form>
          <h2>
-            Customers
+            Products
          </h2>
          <div onClick={handleChangeCreateLabel}>
             <Button

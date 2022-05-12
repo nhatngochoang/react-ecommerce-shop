@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import productApi from '../../api/productApi.js'
 import axios from 'axios'
 import './SearchFilter.css'
 import ProductCard from '../ProductCard.jsx'
@@ -60,6 +59,7 @@ export default function SearchFilter() {
                               name={item.title}
                               price={Number(item.price)}
                               slug={item._id}
+                              id={item._id}
                            />
                         </li>
                      ))}

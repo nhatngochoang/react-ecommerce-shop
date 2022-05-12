@@ -137,7 +137,7 @@ export default function Orders() {
          </form>
          {/* <ModalComponent /> */}
          <h2 className="page-header">
-            customers
+            Orders
          </h2>
          <div className="row">
             <div className="col-12">
