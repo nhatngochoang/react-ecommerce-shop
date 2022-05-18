@@ -10,10 +10,10 @@ import Orders from '../pages/Admin/pages/Orders.jsx'
 import Products from '../pages/Admin/pages/Products.jsx'
 import Register from '../pages/Admin/pages/Register.jsx'
 
-const adminAccessToken = localStorage.getItem('accessToken')
+const isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
 
 const RoutesAdmin = () => {
-   if (!adminAccessToken)
+   if (isAdmin === false)
       return (
          <Switch>
             <Route exact path='/admin/login' component={Login} />

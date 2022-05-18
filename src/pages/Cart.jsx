@@ -171,11 +171,13 @@ const Cart = () => {
                onApprove={function (data, actions) {
                   return actions.order.capture().then(function (details) {
                      const shipping = details.purchase_units[0].shipping;
+                     const productList = JSON.parse(localStorage.getItem("cartItems"));
                      createOrder2({
                         customer: shipping.name.full_name,
                         address: shipping.address.address_line_1,
                         total: totalPrice,
                         method: "PAYPAL",
+                        productList: productList
                      });
                   });
                }}

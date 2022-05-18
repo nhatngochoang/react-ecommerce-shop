@@ -11,6 +11,11 @@ class AuthApi {
          localStorage.setItem("currentUser", JSON.stringify(res))
          localStorage.setItem("accessToken", res.accessToken)
          localStorage.setItem("userID", res._id)
+         if (res.isAdmin) {
+            localStorage.setItem("isAdmin", true)
+         } else {
+            localStorage.setItem("isAdmin", false)
+         }
          if (history) {
             window.location.reload(false);
          }

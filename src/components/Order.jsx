@@ -10,6 +10,8 @@ const bakeImg = require("../assets/images/img/bake.png")
 const bikeImg = require("../assets/images/img/bike.png")
 const deliveredImg = require("../assets/images/img/delivered.png")
 
+const productList = JSON.parse(localStorage.getItem("cartItems"));
+
 const orderState = {
    "_id": "",
    "customer": "",
@@ -17,6 +19,7 @@ const orderState = {
    "total": 0,
    "status": 0,
    "method": 0,
+   "productList": productList
 }
 
 
@@ -70,63 +73,99 @@ function Order(props) {
                               <span className={styles.address}>{order.address}</span>
                            </td>
                            <td>
-                              <span className={styles.total}>{order.total}.000 đ</span>
+                              <span className={styles.total}>{order.total}.000 </span>
                            </td>
                         </tr>
                      </tbody>
                   </table>
                </div>
                <h2 style={{ margin: "40px 0px" }}>Tình trạng đơn hàng</h2>
-               <div className={styles.row}>
-                  <div className={statusClass(0)}>
-                     <img src={paidImg} style={{ width: '30px', height: '30px' }} alt="" />
-                     <span>Đã thanh toán</span>
-                     <div className={styles.checkedIcon}>
-                        <img
-                           className={styles.checkedIcon}
-                           src={checkedImg}
-                           style={{ width: '20px', height: '20px' }}
-                           alt=""
-                        />
+               <div style={{ marginBottom: "40px" }}>
+                  <div className={styles.row}>
+                     <div className={statusClass(0)}>
+                        <img src={paidImg} style={{ width: '30px', height: '30px' }} alt="" />
+                        <span>Đã thanh toán</span>
+                        <div className={styles.checkedIcon}>
+                           <img
+                              className={styles.checkedIcon}
+                              src={checkedImg}
+                              style={{ width: '20px', height: '20px' }}
+                              alt=""
+                           />
+                        </div>
                      </div>
-                  </div>
-                  <div className={statusClass(1)}>
-                     <img src={bakeImg} style={{ width: '30px', height: '30px' }} alt="" />
-                     <span>Đang chuẩn bị</span>
-                     <div className={styles.checkedIcon}>
-                        <img
-                           className={styles.checkedIcon}
-                           src={checkedImg}
-                           style={{ width: '20px', height: '20px' }}
-                           alt=""
-                        />
+                     <div className={statusClass(1)}>
+                        <img src={bakeImg} style={{ width: '30px', height: '30px' }} alt="" />
+                        <span>Đang chuẩn bị</span>
+                        <div className={styles.checkedIcon}>
+                           <img
+                              className={styles.checkedIcon}
+                              src={checkedImg}
+                              style={{ width: '20px', height: '20px' }}
+                              alt=""
+                           />
+                        </div>
                      </div>
-                  </div>
-                  <div className={statusClass(2)}>
-                     <img src={bikeImg} style={{ width: '30px', height: '30px' }} alt="" />
-                     <span>Đang giao hàng</span>
-                     <div className={styles.checkedIcon}>
-                        <img
-                           className={styles.checkedIcon}
-                           src={checkedImg}
-                           style={{ width: '20px', height: '20px' }}
-                           alt=""
-                        />
+                     <div className={statusClass(2)}>
+                        <img src={bikeImg} style={{ width: '30px', height: '30px' }} alt="" />
+                        <span>Đang giao hàng</span>
+                        <div className={styles.checkedIcon}>
+                           <img
+                              className={styles.checkedIcon}
+                              src={checkedImg}
+                              style={{ width: '20px', height: '20px' }}
+                              alt=""
+                           />
+                        </div>
                      </div>
-                  </div>
-                  <div className={statusClass(3)}>
-                     <img src={deliveredImg} style={{ width: '30px', height: '30px' }} alt="" />
-                     <span>Đã giao</span>
-                     <div className={styles.checkedIcon}>
-                        <img
-                           className={styles.checkedIcon}
-                           src={checkedImg}
-                           style={{ width: '20px', height: '20px' }}
-                           alt=""
-                        />
+                     <div className={statusClass(3)}>
+                        <img src={deliveredImg} style={{ width: '30px', height: '30px' }} alt="" />
+                        <span>Đã giao</span>
+                        <div className={styles.checkedIcon}>
+                           <img
+                              className={styles.checkedIcon}
+                              src={checkedImg}
+                              style={{ width: '20px', height: '20px' }}
+                              alt=""
+                           />
+                        </div>
                      </div>
                   </div>
                </div>
+               <table className={styles.table}>
+                  <thead>
+                     <tr className={styles.trTitle}>
+                        <th>Sản phẩm</th>
+                        <th>Màu sắc</th>
+                        <th>Size</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {order.productList.map((item, index) => {
+                        return (
+                           <tr className={styles.tr} key={index}>
+                              <td>
+                                 <span className={styles.id}>{item.slug}</span>
+                              </td>
+                              <td>
+                                 <span className={styles.name}>{item.color}</span>
+                              </td>
+                              <td>
+                                 <span className={styles.address}>{item.size}</span>
+                              </td>
+                              <td>
+                                 <span className={styles.total}>{item.price}</span>
+                              </td>
+                              <td>
+                                 <span className={styles.total}>{item.quantity} </span>
+                              </td>
+                           </tr>
+                        )
+                     })}
+                  </tbody>
+               </table>
             </div>
             <div className={styles.right}>
                <div className={styles.wrapper}>

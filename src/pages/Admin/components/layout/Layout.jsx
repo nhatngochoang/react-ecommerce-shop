@@ -6,14 +6,14 @@ import Sidebar from '../sidebar/index.jsx'
 import Topnav from '../topnav/index.jsx'
 import './layout.css'
 
-const adminAccessToken = localStorage.getItem('accessToken')
+const isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
 
 export default function Layout() {
    const theme = useSelector(state => state.theme)
 
    return (
       <Route render={props => {
-         if (!adminAccessToken)
+         if (isAdmin === false)
             return (
                <div>
                   <RoutesAdmin />

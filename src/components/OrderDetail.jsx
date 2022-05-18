@@ -6,7 +6,8 @@ const OrderDetail = ({ total, createOrder, onClose }) => {
    const [address, setAddress] = useState("");
 
    const handleClick = () => {
-      createOrder({ customer, address, total, method: "CASH" });
+      const productList = JSON.parse(localStorage.getItem("cartItems"));
+      createOrder({ customer, address, total, method: "CASH", productList: productList });
    };
 
    return (
